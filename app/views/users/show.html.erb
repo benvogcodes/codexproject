@@ -1,0 +1,5 @@
+I'm a user view
+
+<% if session[:user_id] %>
+  <%= link_to 'Log Out', session_path(session), method: :delete %>
+<% end %>
