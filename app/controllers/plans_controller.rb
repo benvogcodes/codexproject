@@ -5,7 +5,14 @@ class PlansController < ApplicationController
   def new
   end
 
+  def testnew
+
+  end
+
   def create
+  end
+
+  def testcreate
   end
 
   def show
