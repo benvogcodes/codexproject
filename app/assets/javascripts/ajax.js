@@ -1,5 +1,17 @@
 $(document).ready(function() {
-  console.log('rajal is the punmaster');
+  //When outside, Handlebars was not defined
+  // Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+  //     lvalue = parseFloat(lvalue);
+  //     rvalue = parseFloat(rvalue);
+
+  //     return {
+  //         '+': lvalue + rvalue,
+  //         '-': lvalue - rvalue,
+  //         '*': lvalue * rvalue,
+  //         '/': lvalue / rvalue,
+  //         '%': lvalue % rvalue
+  //     }[operator];
+  // });
   $('#github-search').on('submit', function(event){
     event.preventDefault();
     configure = {
@@ -9,31 +21,23 @@ $(document).ready(function() {
     }
     $.ajax(configure)
     .done(function(response){
-      dataObj = {}
-      console.log(response);
-      //$('#github-search-stuff').append(JSON.stringify(response))
-      for(var i=0; i<response['items'].length; i++) {
-        var currentAuthor = 'author' + i
-        dataObj[currentAuthor] = response['items'][i]['name']
-        $("#template-container").loadTemplate($("#search-results"), dataObj
-            // author: response['items'][i]['name'],
-            // date: response['items'][i]['created_at'],
-            // authorPicture: response['items'][i]["owner"]["avatar_url"],
-            // description: response['items'][i]['description'],
-            // repository: response['items'][i]['full_name']
-        );
-        // $('#github-search-stuff').append(response['items'][i]['name']);
-        // $('#github-search-stuff').append(response['items'][i]['full_name']);
-        // $('#github-search-stuff').append(response['items'][i]['description']);
-        // $('#github-search-stuff').loadTemplate()
+      console.log(response['items']);
+      var configure = {
+        url: "/plans/createplan",
+        method: 'post',
+        data: {repos: response['items']},
+        dataType: 'json'
       }
-      var title = "jason"
-      var body = "jason is cool"
-      //window.location.replace('_github_search_display.html.erb')
-    })
-  })
+      $.ajax(configure)
+      .done(function(response){
 
-
-})
-console.log('hi')
+      });
+      //var source = $('#search-results').html();
+      //var template = Handlebars.compile(source);
+      //var html = template(response["items"]);
+      //debugger
+      //$('#github-search-stuff').html(response['items']);
+    });
+  });
+});
 

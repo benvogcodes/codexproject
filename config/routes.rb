@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   #
   # get 'repos/edit'
 
+  post 'plans/createplan' => 'plans#createplan'
+
   resources :users
   resource  :session
 
