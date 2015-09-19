@@ -19,4 +19,7 @@ class PlansController < ApplicationController
 
   def destroy
   end
+
+  def createplan
+  end
 end
