@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150918184542) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "plans", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "frequency"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150918184542) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "plans", ["user_id"], name: "index_plans_on_user_id"
+  add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "repos", force: :cascade do |t|
     t.integer  "plan_id"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150918184542) do
     t.text     "desc"
   end
 
-  add_index "repos", ["plan_id"], name: "index_repos_on_plan_id"
+  add_index "repos", ["plan_id"], name: "index_repos_on_plan_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -47,4 +50,6 @@ ActiveRecord::Schema.define(version: 20150918184542) do
     t.string   "phone"
   end
 
+  add_foreign_key "plans", "users"
+  add_foreign_key "repos", "plans"
 end
