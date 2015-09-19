@@ -2,20 +2,21 @@
   Enter your query: <input name="q" type="text">
   <input value="submit this" type="submit">
   <div id="github-search-stuff">
-    <script type="text/html" id="search-results">
-      <div data-content="author"></div>
-      <div data-content="date"></div>
-      <img data-src="authorPicture" data-alt="author"/>
-      <div data-content="post"></div>
-  </script>
+    <script id="search-results" type="text/x-handlebars-template">
+      <div>
+        {{#each this}}
+          <div class="row" style>
+            <div class="col-md-12">
+              <h2><a href={{'html_url'}}>{{"full_name"}}</a></h2>
+              <p>{{'size'}} KB</p>
+              <p>Star Count: {{'stargazers_count'}}</p>
+              <p>Fork Count: {{'fork_count'}}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </script>
   </div>
-<div id='template-container'>
-  <script type="text/html" id="search-results">
-      <div data-content="author0"></div>
-      <div data-content="date"></div>
-      <img data-src="authorPicture" data-alt="author"/>
-      <div data-content="post"></div>
-      <div data-content="repository"></div>
-  </script>
-</div>
+
 </form>
+

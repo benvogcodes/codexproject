@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ajax
-//= require jquery.loadTemplate-1.5.0
+//= require handlebars
 //= require_tree .
