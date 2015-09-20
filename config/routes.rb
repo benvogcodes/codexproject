@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'plans/testnew' => 'plans#testnew'
   post 'plans/testcreate' => 'plans#testcreate'
 
+  post 'plans/createplan' => 'plans#createplan'
+
   resources :users
   resource  :session
 
