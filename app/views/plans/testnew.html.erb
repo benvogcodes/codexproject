@@ -1,0 +1,166 @@
+<h1>Plans#new</h1>
+<form>
+  <input type='submit' id='search_button' value='search' />
+</form>
+
+<div id='test_results_box'></div>
+
+<script language='javascript'>
+  var sample = {
+    "total_count": 2,
+    "incomplete_results": false,
+    "items": [
+      {
+        "id": 1222832,
+        "name": "yay",
+        "full_name": "yaybu/yay",
+        "owner": {
+          "login": "yaybu",
+          "id": 5338681,
+          "avatar_url": "https://avatars.githubusercontent.com/u/5338681?v=3",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/yaybu",
+          "html_url": "https://github.com/yaybu",
+          "followers_url": "https://api.github.com/users/yaybu/followers",
+          "following_url": "https://api.github.com/users/yaybu/following{/other_user}",
+          "gists_url": "https://api.github.com/users/yaybu/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/yaybu/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/yaybu/subscriptions",
+          "organizations_url": "https://api.github.com/users/yaybu/orgs",
+          "repos_url": "https://api.github.com/users/yaybu/repos",
+          "events_url": "https://api.github.com/users/yaybu/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/yaybu/received_events",
+          "type": "Organization",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/yaybu/yay",
+        "description": "yay ain't YAML",
+        "fork": false,
+        "url": "https://api.github.com/repos/yaybu/yay",
+        "forks_url": "https://api.github.com/repos/yaybu/yay/forks",
+        "keys_url": "https://api.github.com/repos/yaybu/yay/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/yaybu/yay/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/yaybu/yay/teams",
+        "hooks_url": "https://api.github.com/repos/yaybu/yay/hooks",
+        "issue_events_url": "https://api.github.com/repos/yaybu/yay/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/yaybu/yay/events",
+        "assignees_url": "https://api.github.com/repos/yaybu/yay/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/yaybu/yay/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/yaybu/yay/tags",
+        "blobs_url": "https://api.github.com/repos/yaybu/yay/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/yaybu/yay/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/yaybu/yay/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/yaybu/yay/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/yaybu/yay/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/yaybu/yay/languages",
+        "stargazers_url": "https://api.github.com/repos/yaybu/yay/stargazers",
+        "contributors_url": "https://api.github.com/repos/yaybu/yay/contributors",
+        "subscribers_url": "https://api.github.com/repos/yaybu/yay/subscribers",
+        "subscription_url": "https://api.github.com/repos/yaybu/yay/subscription",
+        "commits_url": "https://api.github.com/repos/yaybu/yay/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/yaybu/yay/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/yaybu/yay/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/yaybu/yay/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/yaybu/yay/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/yaybu/yay/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/yaybu/yay/merges",
+        "archive_url": "https://api.github.com/repos/yaybu/yay/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/yaybu/yay/downloads",
+        "issues_url": "https://api.github.com/repos/yaybu/yay/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/yaybu/yay/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/yaybu/yay/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/yaybu/yay/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/yaybu/yay/labels{/name}",
+        "releases_url": "https://api.github.com/repos/yaybu/yay/releases{/id}",
+        "created_at": "2011-01-05T13:34:24Z",
+        "updated_at": "2014-05-01T08:19:03Z",
+        "pushed_at": "2014-05-01T08:19:03Z",
+        "git_url": "git://github.com/yaybu/yay.git",
+        "ssh_url": "git@github.com:yaybu/yay.git",
+        "clone_url": "https://github.com/yaybu/yay.git",
+        "svn_url": "https://github.com/yaybu/yay",
+        "homepage": "",
+        "size": 3603,
+        "stargazers_count": 11,
+        "watchers_count": 11,
+        "language": "Python",
+        "has_issues": true,
+        "has_downloads": true,
+        "has_wiki": true,
+        "has_pages": false,
+        "forks_count": 4,
+        "mirror_url": null,
+        "open_issues_count": 2,
+        "forks": 4,
+        "open_issues": 2,
+        "watchers": 11,
+        "default_branch": "master",
+        "score": 43.14679
+      },
+      {
+        "id": 3081286,
+        "name": "Tetris",
+        "full_name": "dtrupenn/Tetris",
+        "owner": {
+          "login": "dtrupenn",
+          "id": 872147,
+          "avatar_url": "https://secure.gravatar.com/avatar/e7956084e75f239de85d3a31bc172ace?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/dtrupenn",
+          "received_events_url": "https://api.github.com/users/dtrupenn/received_events",
+          "type": "User"
+        },
+        "private": false,
+        "html_url": "https://github.com/dtrupenn/Tetris",
+        "description": "A C implementation of Tetris using Pennsim through LC4",
+        "fork": false,
+        "url": "https://api.github.com/repos/dtrupenn/Tetris",
+        "created_at": "2012-01-01T00:31:50Z",
+        "updated_at": "2013-01-05T17:58:47Z",
+        "pushed_at": "2012-01-01T00:37:02Z",
+        "homepage": "",
+        "size": 524,
+        "stargazers_count": 1,
+        "watchers_count": 1,
+        "language": "Assembly",
+        "forks_count": 0,
+        "open_issues_count": 0,
+        "master_branch": "master",
+        "default_branch": "master",
+        "score": 10.309712
+      }
+    ]
+  }
+
+  $('#search_button').click(function(e){
+    e.preventDefault();
+    $(e.target).hide();
+    var req = $.post('/plans/testcreate', sample);
+    req.done(function(data){
+      console.log('something was returned!');
+      $('#test_results_box').html(data[1].id);
+    });
+
+
+  });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%#.%>
