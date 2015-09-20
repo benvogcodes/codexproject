@@ -8,27 +8,26 @@ class Plan < ActiveRecord::Base
   def create_plan(data, user)
     puts '*********************'
     puts 'create plan started'
-    puts user.id
+    puts self.id
     puts '*********************'
-    current_user = User.find(user.id)
 
     items = self.clean_data(data)
     result = self.build_cards(items, self)
   end
 
   def clean_data(data)
-    puts '*********************'
-    puts 'clean_data started'
-    puts "data: #{data}"
-    puts '*********************'
+    # puts '*********************'
+    # puts 'clean_data started'
+    # puts "data: #{data}"
+    # puts '*********************'
     result = []
     items = data
     items.each do |item|
-      puts '*********************'
-      puts item.id
-      puts item.name
-      puts item.owner.login
-      puts '*********************'
+      # puts '*********************'
+      # puts item.id
+      # puts item.name
+      # puts item.owner.login
+      # puts '*********************'
       result << {'id' => item.id,
         'name' => item.name,
         'full_name' => item.full_name,
@@ -46,7 +45,7 @@ class Plan < ActiveRecord::Base
         'user' => item.owner.login
       }
     end
-    result
+    result = result.slice(0, self.cards_per_serve)
   end
 
   def build_cards(items, plan)
