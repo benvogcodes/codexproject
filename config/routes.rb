@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # get 'repos/edit'
 
   post 'plans/createplan' => 'plans#createplan'
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 
   resources :users
   resource  :session
@@ -15,6 +18,7 @@ Rails.application.routes.draw do
   resources :plans do
     resources :repos
   end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
