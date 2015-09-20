@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require ajax
 //= require handlebars
+//= require materialize
 //= require_tree .

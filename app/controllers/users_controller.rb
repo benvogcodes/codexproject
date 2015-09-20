@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      log_in(@user)
       redirect_to @user
     else
       render 'new'
@@ -13,6 +14,20 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(username: params[:user][:username], password_digest: params[:user][:password])
+      redirect_to plans_path
+    else
+      render 'edit', :locals => {:id => @user.id}
+    end
+
   end
 
   def index
