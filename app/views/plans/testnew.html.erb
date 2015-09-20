@@ -3,7 +3,7 @@
   <input type='submit' id='search_button' value='search' />
 </form>
 
-<div id='results_box'></div>
+<div id='test_results_box'></div>
 
 <script language='javascript'>
   var sample = {
@@ -133,13 +133,13 @@
     ]
   }
 
-  $('search_button').click(function(e){
+  $('#search_button').click(function(e){
     e.preventDefault();
     $(e.target).hide();
-    var req = $.post('/plans/testnew', sample);
+    var req = $.post('/plans/testcreate', sample);
     req.done(function(data){
       console.log('something was returned!');
-      $('#results_box').html(data);
+      $('#test_results_box').html(data[1].id);
     });
 
 
@@ -163,4 +163,4 @@
 
 
 
-<!-- . -->
+<%#.%>
