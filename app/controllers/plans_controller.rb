@@ -3,6 +3,7 @@ class PlansController < ApplicationController
   end
 
   def new
+
   end
 
   def testnew
@@ -13,7 +14,7 @@ class PlansController < ApplicationController
   end
 
   def testcreate
-    @user = User.find(session[:user_id])
+    @user = get_current_user
     puts '*************************'
     puts @user.id
     puts '*************************'
