@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918184542) do
+ActiveRecord::Schema.define(version: 20150920212621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,12 @@ ActiveRecord::Schema.define(version: 20150918184542) do
     t.integer  "forks"
     t.integer  "size"
     t.text     "desc"
+    t.string   "name"
+    t.string   "user"
+    t.datetime "created"
+    t.datetime "updated"
+    t.datetime "pushed"
+    t.string   "watchers"
   end
 
   add_index "repos", ["plan_id"], name: "index_repos_on_plan_id", using: :btree
