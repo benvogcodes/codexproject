@@ -39,6 +39,8 @@ gem 'twilio-ruby', '~> 4.3.0'
 # For secrets
 gem 'dotenv', '~> 2.0.2'
 
+gem "octokit", "~> 4.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
