@@ -6,14 +6,14 @@ class PlansController < ApplicationController
 
   end
 
-  def testnew
+  # def testnew
+  #
+  # end
 
-  end
+  # def create
+  # end
 
   def create
-  end
-
-  def testcreate
     @user = get_current_user
     @data = params
     puts '*************************'
@@ -21,7 +21,8 @@ class PlansController < ApplicationController
     puts @data
     puts '*************************'
 
-    new_plan = @user.plans.new(frequency: 'na', topic: 'na', query: 'na')
+    new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5)
+    new_plan.language = params['language']
     new_plan.save
     puts '*************************'
     puts "plan: #{new_plan.id}"
