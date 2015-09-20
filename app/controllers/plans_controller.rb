@@ -15,16 +15,33 @@ class PlansController < ApplicationController
 
   def testcreate
     @user = get_current_user
-    puts '*************************'
-    puts @user.id
-    puts '*************************'
     @data = params
+    puts '*************************'
+    puts @user.username
+    puts @data
+    puts '*************************'
+
     new_plan = @user.plans.new(frequency: 'na', topic: 'na', query: 'na')
     new_plan.save
     puts '*************************'
     puts "plan: #{new_plan.id}"
     puts '*************************'
-    @data = new_plan.create_plan(@data, @user)
+    #make github api call
+    q = "q=#{params['topic']}+language:#{params['language']}"
+    puts '*************************'
+    puts q
+    puts '*************************'
+
+    @data = Octokit.search_repos(q)
+    puts '*************************'
+    p @data.items
+    puts '*************************'
+
+    @data = new_plan.create_plan(@data.items, @user)
+
+    puts '*************************'
+    p @data
+    puts '*************************'
 
     render json: @data
   end
