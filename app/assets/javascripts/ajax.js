@@ -24,9 +24,49 @@ $(document).ready(function() {
     }
     $.ajax(configure)
     .done(function(response){
-      console.log("done");
+      console.log(response['items']);
+      raw_data = response;
+    });
+  });
+  $('#parse_button').click(function(e){
+    e.preventDefault();
+    $(e.target).hide();
+    var req = $.post('/plans/testcreate', raw_data);
+    req.done(function(data){
+      console.log('something was returned!');
+      $('#github-search-stuff').html(data[1].id);
     });
   });
 });
+var raw_data
 
 
+
+
+
+
+
+
+
+
+
+
+
+// var configure = {
+//   url: "/plans/createplan",
+//   method: 'post',
+//   data: {repos: response['items']},
+//   dataType: 'json'
+// }
+// $.ajax(configure)
+// .done(function(response){
+
+// });
+
+
+
+// var source = $('#search-results').html();
+// var template = Handlebars.compile(source);
+// var html = template(response["items"]);
+// debugger
+// $('#github-search-stuff').html(response['items']);

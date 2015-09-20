@@ -25,13 +25,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'pg', '0.18.2'
+gem 'pg'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# Use Twilio-Ruby for sms messages
+gem 'twilio-ruby', '~> 4.3.0'
+
+# For secrets
+gem 'dotenv', '~> 2.0.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
