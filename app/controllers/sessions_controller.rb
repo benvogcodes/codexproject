@@ -6,6 +6,9 @@ class SessionsController < ApplicationController
     @user = User.find_by(:username => params[:session][:username])
     if (@user && @user.password == params[:password])
       session[:user_id] = @user.id
+      puts '********************'
+      puts session[:user_id]
+      puts '********************'
       redirect_to @user
     else
       render 'sessions/new'

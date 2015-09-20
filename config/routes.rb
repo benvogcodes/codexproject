@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # get 'repos/show'
   #
   # get 'repos/edit'
+  post 'plans/createplan' => 'plans#createplan'
+  get 'plans/testnew' => 'plans#testnew'
+  post 'plans/testcreate' => 'plans#testcreate'
 
   post 'plans/createplan' => 'plans#createplan'
 
