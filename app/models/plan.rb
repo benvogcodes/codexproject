@@ -8,7 +8,7 @@ class Plan < ActiveRecord::Base
   def create_plan(data, user)
     puts '*********************'
     puts 'create plan started'
-    puts self.id
+    puts "plan: #{self.id}, number of repos: #{data.count}"
     puts '*********************'
 
     items = self.clean_data(data)
@@ -45,7 +45,8 @@ class Plan < ActiveRecord::Base
         'user' => item.owner.login
       }
     end
-    result = result.slice(0, self.cards_per_serve)
+    start = result.length - (self.cards_per_serve + 1)
+    result = result.slice(start, self.cards_per_serve)
   end
 
   def build_cards(items, plan)
@@ -54,11 +55,11 @@ class Plan < ActiveRecord::Base
       card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'], name: item['name'], user: item['user'], created: item['created'], updated: item['updated'], pushed: item['pushed'], watchers: item['watchers'])
       card.stars = item['stars'] || 0
       card.forks = item['forks'] || 0
-      # puts '***************'
-      # puts item.inspect
-      # puts '***************'
-      result << card if card.save
+      puts '***************'
+      puts item['stars']
+      puts '***************'
+      result << card if card.save #&& card.stars != 0
     end
-    result
+    result.sort! { |a,b| a.stars <=> b.stars }
   end
 end

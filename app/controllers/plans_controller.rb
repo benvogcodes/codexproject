@@ -21,8 +21,16 @@ class PlansController < ApplicationController
     new_plan.language = params['language']
     new_plan.save
 
-    q = "q=#{params['topic']}+language:#{params['language']}"
-    @data = Octokit.search_repos(q)
+    if params['topic'].length > 1
+      topic = params['topic'] + '+'
+    else
+      topic = ''
+    end
+    q = "q=#{topic}language:#{params['language']} stars:>19"
+    puts '***************************************************'
+    puts q
+    puts '***************************************************'
+    @data = Octokit.search_repos(q, per_page: 100)
     @data = new_plan.create_plan(@data.items, @user)
 
     render json: @data
