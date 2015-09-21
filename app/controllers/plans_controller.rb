@@ -7,6 +7,11 @@ class PlansController < ApplicationController
   end
 
   def create
+    puts '*************************************'
+    puts params
+    puts '*************************************'
+
+
     @user = current_user
     @data = params
     name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['language']} #{params['topc']}"
