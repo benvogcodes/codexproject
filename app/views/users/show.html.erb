@@ -1,4 +1,6 @@
-I'm a user view
+I'm a user view <br>
+
+<%= link_to 'Click here to Search for Repos', users_path, method: :get %> <br>
 
 <% if session[:user_id] %>
   <%= link_to 'Log Out', session_path(session), method: :delete %>

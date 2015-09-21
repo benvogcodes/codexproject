@@ -1,2 +1,26 @@
-<h1>Plans#new</h1>
-<p>Find me in app/views/plans/new.html.erb</p>
+<!-- <form id="github-search" method="get" action="plans">
+  Enter your topic: <input name="topic" type="text"><br>
+  Enter your language: <input name="language" type="text"><br>
+  <input value="submit this" type="submit">
+
+  <div id="github-search-stuff">
+  </div> -->
+<!--
+</form> -->
+
+<h1>Create a New Study Plan</h1>
+<%= form_for :plan, url: plans_path do |f| %>
+  <p>
+    <%= f.label :topic %><br>
+    <%= f.text_field :topic %>
+  </p>
+
+  <p>
+    <%= f.label :language %><br>
+    <%= f.text_field :language %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
