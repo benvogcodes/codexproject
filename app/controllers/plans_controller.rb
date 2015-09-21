@@ -27,7 +27,7 @@ class PlansController < ApplicationController
     else
       topic = ''
     end
-    q = "q=#{topic}language:#{params['language']} stars:>19"
+    q = "q=#{topic}language:#{params['language']} stars:>5"
     puts '***************************************************'
     puts q
     puts '***************************************************'
