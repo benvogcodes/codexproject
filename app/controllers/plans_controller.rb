@@ -16,33 +16,22 @@ class PlansController < ApplicationController
   def create
     @user = get_current_user
     @data = params
-    puts '*************************'
-    puts @user.username
-    puts @data
-    puts '*************************'
 
     new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5)
     new_plan.language = params['language']
     new_plan.save
-    puts '*************************'
-    puts "plan: #{new_plan.id}"
-    puts '*************************'
-    #make github api call
-    q = "q=#{params['topic']}+language:#{params['language']}"
-    puts '*************************'
+
+    if params['topic'].length > 1
+      topic = params['topic'] + '+'
+    else
+      topic = ''
+    end
+    q = "q=#{topic}language:#{params['language']} stars:>19"
+    puts '***************************************************'
     puts q
-    puts '*************************'
-
-    @data = Octokit.search_repos(q)
-    puts '*************************'
-    p @data.items
-    puts '*************************'
-
+    puts '***************************************************'
+    @data = Octokit.search_repos(q, per_page: 100)
     @data = new_plan.create_plan(@data.items, @user)
-
-    puts '*************************'
-    p @data
-    puts '*************************'
 
     render json: @data
   end
