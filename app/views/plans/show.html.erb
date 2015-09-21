@@ -1,6 +1,8 @@
 <h1>Plans#show</h1>
 <p>Find me in app/views/plans/show.html.erb</p>
 
+<%= link_to "Edit Plan", edit_plan_path(@plan) %>
+
 <% i = 0 %>
 
 <% while i < @plan.repos.length %>
@@ -20,24 +22,3 @@
     </ul>
     <% i += 1 %>
 <% end %>
-
-
-<!-- # <% current_user.plans.each do |plan| %>
-#   <%= plan.repos.each do |repo| %>
-#     <ul>
-#       <hr>
-#       <li><b>Name: </b><%= repo.name %></li>
-#       <li><b>User: </b><%= repo.user %></li>
-#       <li><b>Created: </b><%= repo.created %></li>
-#       <li><b>Updated: </b><%= repo.updated %></li>
-#       <li><b>Pushed: </b><%= repo.pushed %></li>
-#       <li><b>Watchers: </b><%= repo.watchers %></li>
-#       <li><b>URL: </b><%= repo.url %></li>
-#       <li><b>Stars: </b><%= repo.stars %></li>
-#       <li><b>Forks: </b><%= repo.forks %></li>
-#       <li><b>Size: </b><%= repo.size %></li>
-#       <li><b>Desc: </b><%= repo.desc %></li>
-#       <hr>
-#     </ul>
-#   <% end %>
-# <% end %> -->

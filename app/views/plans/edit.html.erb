@@ -1,2 +1,26 @@
 <h1>Plans#edit</h1>
 <p>Find me in app/views/plans/edit.html.erb</p>
+
+<div class = "edit-plan-details">
+  <h1>Edit plan details</h1>
+  <%= form_for(@plan) do |f| %>
+  <p>
+    <%= f.label :frequency %><br>
+    <%= f.text_field :frequency %>
+  </p>
+
+  <p>
+    <%= f.label :topic %><br>
+    <%= f.text_field :topic %>
+  </p>
+
+  <p>
+    <%= f.label :language %><br>
+    <%= f.text_field :language %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+</div>
