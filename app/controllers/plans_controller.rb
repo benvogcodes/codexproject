@@ -33,15 +33,11 @@ class PlansController < ApplicationController
     @data = Octokit.search_repos(q, per_page: 100)
     @data = new_plan.create_plan(@data.items, @user)
 
-<<<<<<< HEAD
-    render json: @data
-=======
     puts '*************************'
     p @data
     puts '*************************'
 
     redirect_to action: "show", id: new_plan.id
->>>>>>> 58119a642d0d19946083195b05bddb99d11df9cf
   end
 
   def show
