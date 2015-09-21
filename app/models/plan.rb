@@ -19,7 +19,7 @@ class Plan < ActiveRecord::Base
   def clean_data(data)
     puts '*********************'
     puts 'clean_data started'
-    puts "data: #{data}"
+    # puts "data: #{data}"
     puts '*********************'
     result = []
     items = data
