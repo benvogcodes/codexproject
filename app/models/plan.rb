@@ -8,27 +8,22 @@ class Plan < ActiveRecord::Base
   def create_plan(data, user)
     puts '*********************'
     puts 'create plan started'
-    puts user.id
+    puts "plan: #{self.id}, number of repos: #{data.count}"
     puts '*********************'
-    current_user = User.find(user.id)
 
     items = self.clean_data(data)
     result = self.build_cards(items, self)
   end
 
   def clean_data(data)
-    puts '*********************'
-    puts 'clean_data started'
-    puts "data: #{data}"
-    puts '*********************'
     result = []
     items = data
-    items.each do |item|
-      puts '*********************'
-      puts item.id
-      puts item.name
-      puts item.owner.login
-      puts '*********************'
+    items.each_with_index do |item, i|
+      # puts '*********************'
+      # puts item.id
+      # puts item.name
+      # puts item.owner.login
+      # puts '*********************'
       result << {'id' => item.id,
         'name' => item.name,
         'full_name' => item.full_name,
@@ -45,21 +40,25 @@ class Plan < ActiveRecord::Base
         'score' => item.score,
         'user' => item.owner.login
       }
+      if result[i]['description'].length > 255
+        result[i]['description'] = result[i]['description'].slice(0, 255) + '...'
+      end
     end
-    result
+    start = result.length - (self.cards_per_serve + 1)
+    result = result.slice(start, self.cards_per_serve)
   end
 
   def build_cards(items, plan)
     result = []
     items.each do |item|
       card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'], name: item['name'], user: item['user'], created: item['created'], updated: item['updated'], pushed: item['pushed'], watchers: item['watchers'])
-      card.stars = item['stargazers_count'] || 0
-      card.forks = item['forks_count'] || 0
+      card.stars = item['stars'] || 0
+      card.forks = item['forks'] || 0
       puts '***************'
-      puts card['name']
+      puts item['stars']
       puts '***************'
-      result << card if card.save
+      result << card if card.save #&& card.stars != 0
     end
-    result
+    result.sort! { |a,b| a.stars <=> b.stars }
   end
 end
