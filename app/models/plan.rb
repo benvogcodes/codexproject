@@ -22,7 +22,7 @@ class Plan < ActiveRecord::Base
     # puts '*********************'
     result = []
     items = data
-    items.each do |item|
+    items.each_with_index do |item, i|
       # puts '*********************'
       # puts item.id
       # puts item.name
@@ -44,6 +44,9 @@ class Plan < ActiveRecord::Base
         'score' => item.score,
         'user' => item.owner.login
       }
+      if result[i]['description'].length > 255
+        result[i]['description'] = result[i]['description'].slice(0, 255) + '...'
+      end
     end
     start = result.length - (self.cards_per_serve + 1)
     result = result.slice(start, self.cards_per_serve)
