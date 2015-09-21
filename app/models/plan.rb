@@ -52,11 +52,11 @@ class Plan < ActiveRecord::Base
     result = []
     items.each do |item|
       card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'], name: item['name'], user: item['user'], created: item['created'], updated: item['updated'], pushed: item['pushed'], watchers: item['watchers'])
-      card.stars = item['stargazers_count'] || 0
-      card.forks = item['forks_count'] || 0
-      puts '***************'
-      puts card['name']
-      puts '***************'
+      card.stars = item['stars'] || 0
+      card.forks = item['forks'] || 0
+      # puts '***************'
+      # puts item.inspect
+      # puts '***************'
       result << card if card.save
     end
     result
