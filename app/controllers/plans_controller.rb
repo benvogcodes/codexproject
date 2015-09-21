@@ -16,8 +16,9 @@ class PlansController < ApplicationController
   def create
     @user = get_current_user
     @data = params
+    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['language']} #{params['topc']}"
 
-    new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5)
+    new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5, name: name)
     new_plan.language = params['language']
     new_plan.save
 
