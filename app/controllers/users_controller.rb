@@ -24,9 +24,10 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(username: params[:user][:username], password_digest: params[:user][:password])
+    if @user.update(user_params)
       redirect_to plans_path
     else
+      flash[:error] = @user.errors.full_messages
       render 'edit', :locals => {:id => @user.id}
     end
 
