@@ -11,33 +11,34 @@ class PlansController < ApplicationController
   def create
     @user = current_user
     @data = params
-    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['language']} #{params['topc']}"
-    new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5, name: name)
-    new_plan.language = params['language']
+    new_topic = params['plan']['topic']
+    new_language = params['plan']['language']
+    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{new_language} #{new_topic}"
+    new_plan = @user.plans.new(frequency: 1, topic: new_topic, language: new_language, cards_per_serve: 5, serves: 5, name: name)
     new_plan.save
 
-    q = "q=#{params['topic']}+language:#{params[:language]}"
-    puts '*************************'
-    puts q
-    puts params[:language]
-    puts new_plan.language
-    puts '*************************'
-
-    @data = Octokit.search_repos(q)
+    # q = "q=#{new_topic}+language:#{new_language}"
     # puts '*************************'
-    # p @data.items
+    # puts q
+    # puts new_plan.language
     # puts '*************************'
 
-    if params['topic'].length > 1
-      topic = params['topic'] + '+'
+    # @data = Octokit.search_repos(q)
+
+
+    if new_topic.length > 1
+      topic = new_topic + '+'
     else
       topic = ''
     end
-    q = "q=#{topic}language:#{params['language']} stars:>5"
+    q = "#{topic}language:#{new_language}"
     puts '***************************************************'
     puts q
     puts '***************************************************'
     @data = Octokit.search_repos(q, per_page: 100)
+    # puts '*************************'
+    # p "Data: #{@data.items}"
+    # puts '*************************'
     @data = new_plan.create_plan(@data.items, @user)
 
     # puts '*************************'
