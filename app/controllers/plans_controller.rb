@@ -3,35 +3,60 @@ class PlansController < ApplicationController
   end
 
   def new
-  end
-
-  def testnew
 
   end
 
   def create
-  end
+    puts '*************************************'
+    puts params
+    puts '*************************************'
 
-  def testcreate
-    @user = User.find(session[:user_id])
-    puts '*************************'
-    puts @user.id
-    puts '*************************'
+
+    @user = current_user
     @data = params
-    new_plan = @user.plans.new(frequency: 'na', topic: 'na', query: 'na')
+    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
+    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: false, sendgrid: false)
+    new_plan.language = params['plan']['language']
     new_plan.save
-    puts '*************************'
-    puts "plan: #{new_plan.id}"
-    puts '*************************'
-    @data = new_plan.create_plan(@data, @user)
 
-    render json: @data
+    # q = "q=#{params['plan']['topic']}+language:#{params['plan']['language']}"
+    # puts '*************************'
+    # puts q
+    # puts params['language']
+    # puts new_plan.language
+    # puts '*************************'
+
+    # @data = Octokit.search_repos(q)
+    # puts '*************************'
+    # p @data.items
+    # puts '*************************'
+
+    if params['plan']['topic'].length > 1
+      topic = params['plan']['topic'] + '+'
+    else
+      topic = ''
+    end
+    q = "#{topic}language:#{params['plan']['language']} stars:>100"
+    puts '***************************************************'
+    puts q
+    puts '***************************************************'
+    Octokit.auto_paginate = true
+    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+    @data = new_plan.create_plan(@data.items, @user)
+
+    # puts '*************************'
+    # p @data
+    # puts '*************************'
+
+    redirect_to action: "show", id: new_plan.id
   end
 
   def show
+    @plan = Plan.find_by(id: params[:id])
   end
 
   def edit
+    @plan = Plan.find_by(id: params[:id])
   end
 
   def update
@@ -40,6 +65,4 @@ class PlansController < ApplicationController
   def destroy
   end
 
-  def createplan
-  end
 end

@@ -1,2 +1,24 @@
 <h1>Plans#show</h1>
 <p>Find me in app/views/plans/show.html.erb</p>
+
+<%= link_to "Edit Plan", edit_plan_path(@plan) %>
+
+<% i = 0 %>
+
+<% while i < @plan.repos.length %>
+  <hr>
+    <ul>
+      <li><b>name: </b><%= @plan.repos[i]['name'] %></li>
+      <li><b>user: </b><%= @plan.repos[i]['user'] %></li>
+      <li><b>created: </b><%= @plan.repos[i]['created'] %></li>
+      <li><b>updated: </b><%= @plan.repos[i]['updated'] %></li>
+      <li><b>pushed: </b><%= @plan.repos[i]['pushed'] %></li>
+      <li><b>watchers: </b><%= @plan.repos[i]['watchers'] %></li>
+      <li><b>url: </b><%= @plan.repos[i]['url'] %></li>
+      <li><b>stars: </b><%= @plan.repos[i]['stars'] %></li>
+      <li><b>forks: </b><%= @plan.repos[i]['forks'] %></li>
+      <li><b>size: </b><%= @plan.repos[i]['size'] %></li>
+      <li><b>desc: </b><%= @plan.repos[i]['desc'] %></li>
+    </ul>
+    <% i += 1 %>
+<% end %>

@@ -1,17 +1,16 @@
 class Plan < ActiveRecord::Base
   belongs_to :user
   has_many :repos
+  has_many :servings
 
   validates :user_id, presence: true
   validates :frequency, presence: true
-  validates :query, presence: true
 
   def create_plan(data, user)
     puts '*********************'
     puts 'create plan started'
-    puts user.id
+    puts "plan: #{self.id}, number of repos: #{data.count}"
     puts '*********************'
-    current_user = User.find(user.id)
 
     items = self.clean_data(data)
     result = self.build_cards(items, self)
@@ -19,38 +18,104 @@ class Plan < ActiveRecord::Base
 
   def clean_data(data)
     result = []
-    items = data['items']
-    items.each do |item|
-      result << {'id' => item[1]['id'],
-        'name' => item[1]['name'],
-        'full_name' => item[1]['full_name'],
-        'url' => item[1]['url'],
-        'html_url' => item[1]['html_url'],
-        'description' => item[1]['description'],
-        'created_at' => item[1]['created_at'],
-        'updated_at' => item[1]['updated_at'],
-        'pushed_at' => item[1]['pushed_at'],
-        'clone_url' => item[1]['clone_url'],
-        'size' => item[1]['size'],
-        'stargazers_count' => item[1]['stargazers_count'],
-        'watchers_count' => item[1]['watchers_count'],
-        'forks_count' => item[1]['forks_count'],
-        'score' => item[1]['score']
-      }
+    items = data
+
+    number_of_cards = self.cards_per_serve
+    number_of_deliveries = self.serves
+    puts '*********************'
+    puts "cards: #{number_of_cards}"
+    puts "deliveries: #{number_of_deliveries}"
+    puts '*********************'
+
+    number_of_deliveries.times do |j|
+      result = []
+      number_of_cards.times do |i|
+        item = items.slice!(rand(0..(items.length - 1)))
+        new_card = {'id' => item.id,
+          'name' => item.name,
+          'full_name' => item.full_name,
+          'url' => item.url,
+          'html_url' => item.html_url,
+          'description' => item.description,
+          'created' => item.created_at,
+          'updated' => item.updated_at,
+          'pushed' => item.pushed_at,
+          'size' => item.size,
+          'stars' => item.stargazers_count,
+          'watchers' => item.watchers_count,
+          'forks' => item.forks_count,
+          'score' => item.score,
+          'user' => item.owner.login
+        }
+        if new_card['description'].length > 255
+          new_card['description'] = new_card['description'].slice(0, 255) + '...'
+        end
+        new_card = build_card(new_card, self)
+        result << new_card
+      end
+      build_servings(result, self, j)
     end
-    result
+
+    # items.each do |item|
+    #   # puts '*********************'
+    #   # puts item.id
+    #   # puts item.name
+    #   # puts item.owner.login
+    #   # puts '*********************'
+    #   result << {'id' => item.id,
+    #     'name' => item.name,
+    #     'full_name' => item.full_name,
+    #     'url' => item.url,
+    #     'html_url' => item.html_url,
+    #     'description' => item.description,
+    #     'created' => item.created_at,
+    #     'updated' => item.updated_at,
+    #     'pushed' => item.pushed_at,
+    #     'size' => item.size,
+    #     'stars' => item.stargazers_count,
+    #     'watchers' => item.watchers_count,
+    #     'forks' => item.forks_count,
+    #     'score' => item.score,
+    #     'user' => item.owner.login
+    #   }
+    #   if result[i]['description'].length > 255
+    #     result[i]['description'] = result[i]['description'].slice(0, 255) + '...'
+    #   end
+    # end
+    # start = result.length - (self.cards_per_serve + 1)
+    result #= result.slice(start, self.cards_per_serve)
+  end
+
+  def build_card(item, plan)
+    card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'], name: item['name'], user: item['user'], created: item['created'], updated: item['updated'], pushed: item['pushed'], watchers: item['watchers'])
+    card.stars = item['stars'] || 0
+    card.forks = item['forks'] || 0
+    puts '***************'
+    puts item['stars']
+    puts '***************'
+    card.save
+    card
   end
 
   def build_cards(items, plan)
     result = []
     items.each do |item|
-      card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'])
-      card.stars = item['stargazers_count'] || 0
-      card.forks = item['forks_count'] || 0
+      card = plan.repos.new(served: false, size: item.size, desc: item['description'], url: item['html_url'], name: item['name'], user: item['user'], created: item['created'], updated: item['updated'], pushed: item['pushed'], watchers: item['watchers'])
+      card.stars = item['stars'] || 0
+      card.forks = item['forks'] || 0
       puts '***************'
-      puts card['stargazers_count']
+      puts item['stars']
       puts '***************'
-      result << card if card.save
+      result << card if card.save #&& card.stars != 0
+    end
+    result.sort! { |a,b| a.stars <=> b.stars }
+  end
+
+  def build_servings(repositories, plan, num)
+    result = []
+    repositories.each do |repository|
+      new_serving = plan.servings.new(repo_id: repository.id, delivery: num)
+      result << new_serving if new_serving.save
     end
     result
   end

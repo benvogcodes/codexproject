@@ -1,8 +1,8 @@
-require 'rubygems' # not necessary with ruby 1.9 but included for completeness
-require 'twilio-ruby'
+module TwilioHelper
+  require 'rubygems' # not necessary with ruby 1.9 but included for completeness
+  require 'twilio-ruby'
 
-# put your own credentials here
-helpers do
+  # put your own credentials here
   def send_twilio_notification(recipient, sender, message_body)
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_TOKEN']
