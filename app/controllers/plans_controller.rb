@@ -1,8 +1,33 @@
+require 'sendgrid-ruby'
+
 class PlansController < ApplicationController
 
   def index
-    @user = current_user
-    @plans = @user.plans
+
+  end
+
+  def email
+      #
+    # As a hash
+    p ENV['SENDGRID_USERNAME']
+    p ENV['SENDGRID_PASSWORD']
+    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+
+    # Or as a block
+    # client = SendGrid::Client.new do |c|
+    #   c.api_user = 'SENDGRID_USERNAME'
+    #   c.api_key = 'SENDGRID_PASSWORD'
+    # end
+    p client
+    mail = SendGrid::Mail.new do |m|
+
+    m.to = params[:to]
+    m.from = 'jxu011@ucr.com'
+    m.subject = params[:subject]
+    m.text = params[:body]
+    end
+    puts client.send(mail)
+    redirect_to plans_path
   end
 
   def new
@@ -38,7 +63,6 @@ class PlansController < ApplicationController
 
     @data = new_plan.create_plan(@data.items, @user)
 
-<<<<<<< HEAD
     # puts '*************************'
     # p @data
     # puts '*************************'
@@ -47,8 +71,6 @@ class PlansController < ApplicationController
 
     send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
-=======
->>>>>>> 40661e5b69c40c3eb9aa75d3c543ec3865c80a28
     redirect_to action: "show", id: new_plan.id
   end
 
@@ -71,9 +93,9 @@ class PlansController < ApplicationController
     redirect_to plans_path
   end
 
+
   private
     def plan_params
-      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid)
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
     end
-
 end
