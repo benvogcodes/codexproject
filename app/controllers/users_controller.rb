@@ -39,12 +39,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     log_out()
-    @user.plans.each do |plan|
-      plan.repos.each do |repo|
-        repo.destroy
-      end
-      plan.destroy
-    end
     @user.destroy
     redirect_to root_path
   end
