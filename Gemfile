@@ -37,15 +37,16 @@ gem 'pg'
 gem 'twilio-ruby', '~> 4.3.0'
 
 # For secrets
-gem 'dotenv', '~> 2.0.2'
+gem 'dotenv-rails'
 
 gem "octokit", "~> 4.0"
 
-gem "rails_12factor", group: :production
+gem 'sendgrid-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -54,4 +55,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :production do
+  gem "rails_12factor"
 end
