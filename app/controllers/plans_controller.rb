@@ -22,19 +22,6 @@ class PlansController < ApplicationController
     new_plan.language = params['plan']['language']
     new_plan.save
 
-    # q = "q=#{params['plan']['topic']}+language:#{params['plan']['language']}"
-    # puts '*************************'
-    # puts q
-    # puts params['language']
-    # puts new_plan.language
-    # puts '*************************'
-
-    # @data = Octokit.search_repos(q)
-
-    # puts '*************************'
-    # puts q
-    # puts new_plan.language
-    # puts '*************************'
 
     if params['plan']['topic'].length > 1
       topic = params['plan']['topic'] + '+'
