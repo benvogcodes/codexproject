@@ -15,7 +15,7 @@ class PlansController < ApplicationController
     @user = current_user
     @data = params
     name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
-    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name)
+    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: false, sendgrid: false)
     new_plan.language = params['plan']['language']
     new_plan.save
 
@@ -40,7 +40,8 @@ class PlansController < ApplicationController
     puts '***************************************************'
     puts q
     puts '***************************************************'
-    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100})
+    Octokit.auto_paginate = true
+    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
     @data = new_plan.create_plan(@data.items, @user)
 
     # puts '*************************'
