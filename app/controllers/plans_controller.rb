@@ -37,10 +37,6 @@ class PlansController < ApplicationController
 
     @data = new_plan.create_plan(@data.items, @user)
 
-    # puts '*************************'
-    # p @data
-    # puts '*************************'
-
     redirect_to action: "show", id: new_plan.id
   end
 
@@ -53,6 +49,8 @@ class PlansController < ApplicationController
   end
 
   def update
+    @plan = Plan.find(params[:id])
+    redirect_to plan_path(@plan) if @plan.update(plan_params)
   end
 
   def destroy
@@ -60,5 +58,10 @@ class PlansController < ApplicationController
     @plan.destroy
     redirect_to plans_path
   end
+
+  private
+    def plan_params
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid)
+    end
 
 end
