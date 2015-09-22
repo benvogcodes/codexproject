@@ -18,7 +18,7 @@ class Plan < ActiveRecord::Base
 
   def clean_data(data)
     result = []
-    items = data
+    items = data || []
 
     number_of_cards = self.cards_per_serve
     number_of_deliveries = self.serves
@@ -30,28 +30,30 @@ class Plan < ActiveRecord::Base
     number_of_deliveries.times do |j|
       result = []
       number_of_cards.times do |i|
-        item = items.slice!(rand(0..(items.length - 1)))
-        new_card = {'id' => item.id,
-          'name' => item.name,
-          'full_name' => item.full_name,
-          'url' => item.url,
-          'html_url' => item.html_url,
-          'description' => item.description,
-          'created' => item.created_at,
-          'updated' => item.updated_at,
-          'pushed' => item.pushed_at,
-          'size' => item.size,
-          'stars' => item.stargazers_count,
-          'watchers' => item.watchers_count,
-          'forks' => item.forks_count,
-          'score' => item.score,
-          'user' => item.owner.login
-        }
-        if new_card['description'].length > 255
-          new_card['description'] = new_card['description'].slice(0, 255) + '...'
+        if items.length > 0
+          item = items.slice!(rand(0..(items.length - 1)))
+          new_card = {'id' => item.id,
+            'name' => item.name,
+            'full_name' => item.full_name,
+            'url' => item.url,
+            'html_url' => item.html_url,
+            'description' => item.description,
+            'created' => item.created_at,
+            'updated' => item.updated_at,
+            'pushed' => item.pushed_at,
+            'size' => item.size,
+            'stars' => item.stargazers_count,
+            'watchers' => item.watchers_count,
+            'forks' => item.forks_count,
+            'score' => item.score,
+            'user' => item.owner.login
+          }
+          if new_card['description'].length > 255
+            new_card['description'] = new_card['description'].slice(0, 255) + '...'
+          end
+          new_card = build_card(new_card, self)
         end
-        new_card = build_card(new_card, self)
-        result << new_card
+        result << new_card if new_card
       end
       build_servings(result, self, j)
     end
