@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  def index
+  end
+
   def new
   end
 
@@ -33,7 +36,12 @@ class UsersController < ApplicationController
 
   end
 
-  def index
+  def destroy
+    @user = User.find(params[:id])
+    log_out()
+    @user.destroy
+
+    redirect_to root_path
   end
 
   private
