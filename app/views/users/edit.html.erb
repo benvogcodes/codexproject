@@ -6,7 +6,7 @@
       <p><%= error %></p>
     <% end %>
   <% end %>
-  
+
   <%= form_for(@user) do |f| %>
   <p>
     <%= f.label :username %><br>
@@ -27,4 +27,7 @@
     <%= f.submit %>
   </p>
 <% end %>
+<br>
+<%= button_to "Delete My Account", user_path(@user), method: :delete %>
+
 </div>
