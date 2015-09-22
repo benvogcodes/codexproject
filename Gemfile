@@ -33,6 +33,9 @@ gem 'pg'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# For secrets
+gem 'dotenv-rails'
+
 # Use Twilio-Ruby for sms messages
 gem 'twilio-ruby', '~> 4.3.0'
 
@@ -43,8 +46,6 @@ gem 'sendgrid-ruby'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-# For secrets
-  gem 'dotenv-rails'
 end
 
 group :development do
