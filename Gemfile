@@ -37,7 +37,7 @@ gem 'pg'
 gem 'twilio-ruby', '~> 4.3.0'
 
 # For secrets
-gem 'dotenv', '~> 2.0.2'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 gem "octokit", "~> 4.0"
 
