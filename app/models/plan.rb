@@ -1,7 +1,7 @@
 class Plan < ActiveRecord::Base
   belongs_to :user
-  has_many :repos
-  has_many :servings
+  has_many :repos, dependent: :destroy
+  has_many :servings, dependent: :destroy
 
   validates :user_id, presence: true
   validates :frequency, presence: true
