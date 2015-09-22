@@ -69,6 +69,12 @@ class PlansController < ApplicationController
   end
 
   def destroy
+    @plan = Plan.find(params[:id])
+    @plan.repos.each do |repo|
+      repo.destroy
+    end
+    @plan.destroy
+    redirect_to plans_path
   end
 
 end
