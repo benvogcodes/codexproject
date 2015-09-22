@@ -21,6 +21,12 @@
   </p>
 
   <p>
+    <%= f.label "Notify me by:" %><br>
+    <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
+    <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
+  </p>
+
+  <p>
     <%= f.submit "Create" %>
   </p>
 <% end %>
