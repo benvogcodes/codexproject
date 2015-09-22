@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :log_in, :current_user, :logged_in?, :log_out
+  helper_method :log_in, :current_user, :logged_in?, :log_out, :authenticate_github
 
   # Authentication methods
   def log_in(user)
@@ -24,5 +24,12 @@ class ApplicationController < ActionController::Base
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  def authenticate_github
+    client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
+
+    user = client.user
+    user.login
   end
 end
