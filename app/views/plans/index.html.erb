@@ -1,5 +1,6 @@
 <h1>Your Plans</h1>
 <ul>
+  <%= button_to "New Plan", new_plan_path, method: :get %>
   <% @plans.each do |plan| %>
     <li><h4><%= link_to plan.name, plan_path(plan) %></h4></li>
   <% end %>
