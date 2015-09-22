@@ -14,8 +14,9 @@
   </p>
 
   <p>
-    <%= f.label :notification %><br>
-    <%= f.text_field :language %>
+    <%= f.label "Notify me by:" %><br>
+    <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
+    <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
   </p>
 
   <p>
