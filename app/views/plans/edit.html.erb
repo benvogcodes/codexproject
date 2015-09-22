@@ -1,26 +1,27 @@
-<h1>Plans#edit</h1>
-<p>Find me in app/views/plans/edit.html.erb</p>
+<h1><%= @plan.name %></h1>
 
 <div class = "edit-plan-details">
-  <h1>Edit plan details</h1>
+  <h3>Edit plan details</h3>
   <%= form_for(@plan) do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
   <p>
     <%= f.label :frequency %><br>
     <%= f.text_field :frequency %>
   </p>
 
   <p>
-    <%= f.label :topic %><br>
-    <%= f.text_field :topic %>
-  </p>
-
-  <p>
-    <%= f.label :language %><br>
+    <%= f.label :notification %><br>
     <%= f.text_field :language %>
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit "Save Changes"%>
   </p>
 <% end %>
+<br>
+<%= button_to "Delete This Plan", plan_path(@plan), method: :delete %>
 </div>
