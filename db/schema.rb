@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921164258) do
+ActiveRecord::Schema.define(version: 20150921234705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20150921164258) do
     t.integer  "cards_per_serve"
     t.integer  "serves"
     t.string   "name"
+    t.integer  "served"
+    t.boolean  "twilio"
+    t.boolean  "sendgrid"
   end
 
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
@@ -50,6 +53,15 @@ ActiveRecord::Schema.define(version: 20150921164258) do
 
   add_index "repos", ["plan_id"], name: "index_repos_on_plan_id", using: :btree
 
+  create_table "servings", force: :cascade do |t|
+    t.integer "plan_id"
+    t.integer "repo_id"
+    t.integer "delivery"
+  end
+
+  add_index "servings", ["plan_id"], name: "index_servings_on_plan_id", using: :btree
+  add_index "servings", ["repo_id"], name: "index_servings_on_repo_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
@@ -61,4 +73,6 @@ ActiveRecord::Schema.define(version: 20150921164258) do
 
   add_foreign_key "plans", "users"
   add_foreign_key "repos", "plans"
+  add_foreign_key "servings", "plans"
+  add_foreign_key "servings", "repos"
 end

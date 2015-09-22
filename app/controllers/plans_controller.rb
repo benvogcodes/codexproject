@@ -1,6 +1,7 @@
 require 'sendgrid-ruby'
 
 class PlansController < ApplicationController
+
   def index
 
   end
@@ -34,40 +35,41 @@ class PlansController < ApplicationController
   end
 
   def create
+    puts '*************************************'
+    puts params
+    puts '*************************************'
+
+
     @user = current_user
     @data = params
-    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['language']} #{params['topc']}"
-    new_plan = @user.plans.new(frequency: 1, topic: params['topic'], cards_per_serve: 5, serves: 5, name: name)
-    new_plan.language = params['language']
+
+    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
+    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: false, sendgrid: false)
+    new_plan.language = params['plan']['language']
     new_plan.save
 
-    q = "q=#{params['topic']}+language:#{params[:language]}"
-    puts '*************************'
-    puts q
-    puts params[:language]
-    puts new_plan.language
-    puts '*************************'
 
-    @data = Octokit.search_repos(q)
-    # puts '*************************'
-    # p @data.items
-    # puts '*************************'
-
-    if params['topic'].length > 1
-      topic = params['topic'] + '+'
+    if params['plan']['topic'].length > 1
+      topic = params['plan']['topic'] + '+'
     else
       topic = ''
     end
-    q = "q=#{topic}language:#{params['language']} stars:>5"
+    q = "#{topic}language:#{params['plan']['language']} stars:>100"
     puts '***************************************************'
     puts q
     puts '***************************************************'
-    @data = Octokit.search_repos(q, per_page: 100)
+    Octokit.auto_paginate = true
+    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+
     @data = new_plan.create_plan(@data.items, @user)
 
     # puts '*************************'
     # p @data
     # puts '*************************'
+
+    @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
+
+    send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
     redirect_to action: "show", id: new_plan.id
   end
@@ -81,25 +83,19 @@ class PlansController < ApplicationController
   end
 
   def update
+    @plan = Plan.find(params[:id])
+    redirect_to plan_path(@plan) if @plan.update(plan_params)
   end
 
   def destroy
+    @plan = Plan.find(params[:id])
+    @plan.destroy
+    redirect_to plans_path
   end
 
 
   private
-  def plan_params
-    params.require(:plan).permit(:topic, :frequency, :topic, :query)
-  end
-
-  # def createplan
-  #   @repositories = params[:repos]
-  #   @repositories.each do |repository|
-  #     puts "*" * 100
-  #     # fetching property example
-  #     p repository[1]['full_name']
-  #   end
-  #   redirect_to root_path
-  # end
-
+    def plan_params
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
+    end
 end
