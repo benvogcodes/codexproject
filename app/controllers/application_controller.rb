@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :logged_in?
 
-
   # Authentication methods
   def log_in(user)
     session[:user_id] = user.id
@@ -27,6 +26,12 @@ class ApplicationController < ActionController::Base
     session.delete(:user_id)
     @current_user = nil
   end
+
+  def authenticate_github
+    client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
+
+    user = client.user
+    user.login
 
   def send_twilio_notification(recipient, sender, message_body)
     account_sid = ENV['TWILIO_SID']
