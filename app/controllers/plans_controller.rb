@@ -1,14 +1,31 @@
+require 'sendgrid-ruby'
+
 class PlansController < ApplicationController
   def index
-    require 'sendgrid-ruby'
+
+  end
+
+  def email
+      #
     # As a hash
-    client = SendGrid::Client.new(api_user: 'SENDGRID_USERNAME', api_key: 'SENDGRID_PASSWORD')
+    p ENV['SENDGRID_USERNAME']
+    p ENV['SENDGRID_PASSWORD']
+    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
 
     # Or as a block
-    client = SendGrid::Client.new do |c|
-      c.api_user = 'SENDGRID_USERNAME'
-      c.api_key = 'SENDGRID_PASSWORD'
-end
+    # client = SendGrid::Client.new do |c|
+    #   c.api_user = 'SENDGRID_USERNAME'
+    #   c.api_key = 'SENDGRID_PASSWORD'
+    # end
+    p client
+    mail = SendGrid::Mail.new do |m|
+    m.to = "example@example.com"
+    m.from = 'taco@cat.limo'
+    m.subject = 'Codex email notification review!'
+    m.text = 'I heard you like pineapple.'
+    end
+    puts client.send(mail)
+    redirect_to plan_path
   end
 
   def new
@@ -67,5 +84,21 @@ end
 
   def destroy
   end
+
+
+  private
+  def plan_params
+    params.require(:plan).permit(:topic, :frequency, :topic, :query)
+  end
+
+  # def createplan
+  #   @repositories = params[:repos]
+  #   @repositories.each do |repository|
+  #     puts "*" * 100
+  #     # fetching property example
+  #     p repository[1]['full_name']
+  #   end
+  #   redirect_to root_path
+  # end
 
 end
