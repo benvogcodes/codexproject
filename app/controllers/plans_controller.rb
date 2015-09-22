@@ -19,13 +19,14 @@ class PlansController < ApplicationController
     # end
     p client
     mail = SendGrid::Mail.new do |m|
-    m.to = "example@example.com"
-    m.from = 'taco@cat.limo'
-    m.subject = 'Codex email notification review!'
-    m.text = 'I heard you like pineapple.'
+
+    m.to = params[:to]
+    m.from = 'jxu011@ucr.com'
+    m.subject = params[:subject]
+    m.text = params[:body]
     end
     puts client.send(mail)
-    redirect_to plan_path
+    redirect_to plans_path
   end
 
   def new
