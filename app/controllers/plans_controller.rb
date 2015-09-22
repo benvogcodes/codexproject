@@ -19,7 +19,8 @@ class PlansController < ApplicationController
     @data = params
 
     name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
-    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: false, sendgrid: false)
+
+    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: params['plan']['twilio'], sendgrid: params['plan']['sendgrid'])
     new_plan.language = params['plan']['language']
     new_plan.save
 
@@ -58,15 +59,19 @@ class PlansController < ApplicationController
   end
 
   def update
+    @plan = Plan.find(params[:id])
+    redirect_to plan_path(@plan) if @plan.update(plan_params)
   end
 
   def destroy
     @plan = Plan.find(params[:id])
-    @plan.repos.each do |repo|
-      repo.destroy
-    end
     @plan.destroy
     redirect_to plans_path
   end
+
+  private
+    def plan_params
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid)
+    end
 
 end
