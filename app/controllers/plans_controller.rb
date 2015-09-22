@@ -9,36 +9,45 @@ class PlansController < ApplicationController
   end
 
   def create
+    puts '*************************************'
+    puts params
+    puts '*************************************'
+
+
     @user = current_user
     @data = params
-    new_topic = params['plan']['topic']
-    new_language = params['plan']['language']
-    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{new_language} #{new_topic}"
-    new_plan = @user.plans.new(frequency: 1, topic: new_topic, language: new_language, cards_per_serve: 5, serves: 5, name: name)
+
+    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
+    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: false, sendgrid: false)
+    new_plan.language = params['plan']['language']
     new_plan.save
 
-    # q = "q=#{new_topic}+language:#{new_language}"
+    # q = "q=#{params['plan']['topic']}+language:#{params['plan']['language']}"
     # puts '*************************'
     # puts q
+    # puts params['language']
     # puts new_plan.language
     # puts '*************************'
 
     # @data = Octokit.search_repos(q)
 
+    # puts '*************************'
+    # puts q
+    # puts new_plan.language
+    # puts '*************************'
 
-    if new_topic.length > 1
-      topic = new_topic + '+'
+    if params['plan']['topic'].length > 1
+      topic = params['plan']['topic'] + '+'
     else
       topic = ''
     end
-    q = "#{topic}language:#{new_language}"
+    q = "#{topic}language:#{params['plan']['language']} stars:>100"
     puts '***************************************************'
     puts q
     puts '***************************************************'
-    @data = Octokit.search_repos(q, per_page: 100)
-    # puts '*************************'
-    # p "Data: #{@data.items}"
-    # puts '*************************'
+    Octokit.auto_paginate = true
+    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+
     @data = new_plan.create_plan(@data.items, @user)
 
     # puts '*************************'
