@@ -1,7 +1,33 @@
+require 'sendgrid-ruby'
+
 class PlansController < ApplicationController
+
   def index
-    @user = current_user
-    @plans = @user.plans
+
+  end
+
+  def email
+      #
+    # As a hash
+    p ENV['SENDGRID_USERNAME']
+    p ENV['SENDGRID_PASSWORD']
+    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+
+    # Or as a block
+    # client = SendGrid::Client.new do |c|
+    #   c.api_user = 'SENDGRID_USERNAME'
+    #   c.api_key = 'SENDGRID_PASSWORD'
+    # end
+    p client
+    mail = SendGrid::Mail.new do |m|
+
+    m.to = params[:to]
+    m.from = 'jxu011@ucr.com'
+    m.subject = params[:subject]
+    m.text = params[:body]
+    end
+    puts client.send(mail)
+    redirect_to plans_path
   end
 
   def new
@@ -26,6 +52,10 @@ class PlansController < ApplicationController
     create_query(topic)
     @data = new_plan.create_plan(@data.items, @user)
 
+    @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
+
+    send_twilio_notification("+12026572604", "+12027190379", @message_body)
+
     redirect_to action: "show", id: new_plan.id
   end
 
@@ -38,13 +68,12 @@ class PlansController < ApplicationController
   end
 
   def update
+    @plan = Plan.find(params[:id])
+    redirect_to plan_path(@plan) if @plan.update(plan_params)
   end
 
   def destroy
     @plan = Plan.find(params[:id])
-    @plan.repos.each do |repo|
-      repo.destroy
-    end
     @plan.destroy
     redirect_to plans_path
   end
@@ -55,5 +84,8 @@ class PlansController < ApplicationController
       authenticate_github
       Octokit.auto_paginate = true
       @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+
+    def plan_params
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
     end
 end
