@@ -38,6 +38,7 @@ class PlansController < ApplicationController
 
     @data = new_plan.create_plan(@data.items, @user)
 
+<<<<<<< HEAD
     # puts '*************************'
     # p @data
     # puts '*************************'
@@ -46,6 +47,8 @@ class PlansController < ApplicationController
 
     send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
+=======
+>>>>>>> 40661e5b69c40c3eb9aa75d3c543ec3865c80a28
     redirect_to action: "show", id: new_plan.id
   end
 
@@ -58,15 +61,19 @@ class PlansController < ApplicationController
   end
 
   def update
+    @plan = Plan.find(params[:id])
+    redirect_to plan_path(@plan) if @plan.update(plan_params)
   end
 
   def destroy
     @plan = Plan.find(params[:id])
-    @plan.repos.each do |repo|
-      repo.destroy
-    end
     @plan.destroy
     redirect_to plans_path
   end
+
+  private
+    def plan_params
+      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid)
+    end
 
 end
