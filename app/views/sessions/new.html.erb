@@ -1,5 +1,12 @@
 <div>
   <h1>Login</h1>
+
+  <% if flash[:error] %>
+    <% flash[:error].each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  <% end %>
+  
   <%= form_for :session, url: session_path do |f| %>
 
     <p>
