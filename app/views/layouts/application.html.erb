@@ -9,7 +9,7 @@
 <body>
 <nav>
   <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Logo</a>
+    <a href="/" class="brand-logo">CODEX</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><%= link_to "Home", '/' %></li>
       <% if logged_in? %>
@@ -25,6 +25,10 @@
 </nav>
 <%= yield %>
 <br>
-<div='footer'>&copy; Codex 2015</div>
+<footer class="page-footer">
+  <div class="footer-copyright">
+    © 2015 CODEX
+  </div>
+</footer>
 </body>
 </html>
