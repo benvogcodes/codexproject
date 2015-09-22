@@ -3,7 +3,8 @@ require 'sendgrid-ruby'
 class PlansController < ApplicationController
 
   def index
-
+    @user = current_user
+    @plans = @user.plans
   end
 
   def email
@@ -35,38 +36,22 @@ class PlansController < ApplicationController
   end
 
   def create
-    puts '*************************************'
-    puts params
-    puts '*************************************'
-
-
     @user = current_user
-    @data = params
 
     name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
-
-    new_plan = @user.plans.new(frequency: 1, topic: params['plan']['topic'], cards_per_serve: 5, serves: 5, name: name, twilio: params['plan']['twilio'], sendgrid: params['plan']['sendgrid'])
-    new_plan.language = params['plan']['language']
-    new_plan.save
-
+    new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
+                               cards_per_serve: 5, serves: 5, name: name,
+                               twilio: false, sendgrid: false,
+                               language: params['plan']['language'])
 
     if params['plan']['topic'].length > 1
       topic = params['plan']['topic'] + '+'
     else
       topic = ''
     end
-    q = "#{topic}language:#{params['plan']['language']} stars:>100"
-    puts '***************************************************'
-    puts q
-    puts '***************************************************'
-    Octokit.auto_paginate = true
-    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
 
+    create_query(topic)
     @data = new_plan.create_plan(@data.items, @user)
-
-    # puts '*************************'
-    # p @data
-    # puts '*************************'
 
     @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
@@ -95,7 +80,15 @@ class PlansController < ApplicationController
   end
 
   private
+    def create_query(topic)
+      q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
+      # authenticate_github
+      Octokit.auto_paginate = true
+      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+    end
+
     def plan_params
       params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
     end
+
 end
