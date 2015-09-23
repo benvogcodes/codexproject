@@ -94,7 +94,7 @@ class PlansController < ApplicationController
   private
     def create_query(topic)
       q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-      authenticate_github
+      # authenticate_github
       Octokit.auto_paginate = false
       @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
     end
