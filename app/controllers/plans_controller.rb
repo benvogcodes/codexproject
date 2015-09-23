@@ -42,7 +42,7 @@ class PlansController < ApplicationController
     new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
                                cards_per_serve: 5, serves: 5, name: name,
                                twilio: false, sendgrid: false,
-                               language: params['plan']['language'])
+                               language: params['plan']['language'], served: 0)
 
     if params['plan']['topic'].length > 1
       topic = params['plan']['topic'] + '+'
@@ -55,13 +55,25 @@ class PlansController < ApplicationController
 
     @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
-    send_twilio_notification("+12026572604", "+12027190379", @message_body)
+    # send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
     redirect_to action: "show", id: new_plan.id
   end
 
   def show
     @plan = Plan.find_by(id: params[:id])
+    @current_cards = []
+    @prev_cards = []
+    servings = @plan.servings
+    servings.each do |serving|
+      if serving.delivery == @plan.served
+        card = Repo.find(serving.repo_id)
+        @current_cards << card
+      elsif serving.delivery < @plan.served
+        card = Repo.find(serving.repo_id)
+        @prev_cards << card
+      end
+    end
   end
 
   def edit
@@ -82,9 +94,9 @@ class PlansController < ApplicationController
   private
     def create_query(topic)
       q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-      # authenticate_github
-      Octokit.auto_paginate = true
-      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+      authenticate_github
+      Octokit.auto_paginate = false
+      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100})
     end
 
     def plan_params
