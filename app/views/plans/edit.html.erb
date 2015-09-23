@@ -3,26 +3,32 @@
 <div class = "edit-plan-details">
   <h3>Edit plan details</h3>
   <%= form_for(@plan) do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
 
-  <p>
-    <%= f.label :frequency %><br>
-    <%= f.text_field :frequency %>
-  </p>
+    <p>
+      <%= f.label :frequency %><br>
+      <%= f.text_field :frequency %>
+    </p>
 
-  <p>
-    <%= f.label "Notify me by:" %><br>
-    <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
-    <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
-  </p>
+    <p>
+      <%= f.label "Notify me by:" %><br>
+      <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
+      <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
+    </p>
 
-  <p>
-    <%= f.submit "Save Changes"%>
-  </p>
-<% end %>
+    <p>
+      <%= button_tag( :class => "btn waves-effect waves-light") do %>
+        Save Changes <i class="material-icons right"></i>
+      <% end %>
+    </p>
+  <% end %>
 <br>
-<%= button_to "Delete This Plan", plan_path(@plan), method: :delete %>
+  <%= form_tag(plan_path(@plan), :method => :delete) do %>
+    <%= button_tag( :class => "btn waves-effect waves-light") do %>
+      Delete Plan <i class="material-icons right"></i>
+    <% end %>
+  <% end %><br>
 </div>
