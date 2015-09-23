@@ -1,5 +1,5 @@
 <div class = "edit-account-details">
-  <h1>Edit account details</h1>
+  <h1>Account Settings</h1>
 
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
@@ -8,6 +8,7 @@
   <% end %>
 
   <%= form_for(@user) do |f| %>
+
     <p>
       <%= f.label :username %><br>
       <%= f.text_field :username %>
@@ -29,6 +30,7 @@
       <% end %>
     </p>
     <% end %>
+
 <br>
 
 <%= form_tag(user_path(@user), :method => :delete) do %>
