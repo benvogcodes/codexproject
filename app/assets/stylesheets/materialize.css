@@ -5563,7 +5563,7 @@ small {
   margin: 0.5rem 0 1rem 0;
   background-color: #fff;
   transition: box-shadow .25s;
-  border-radius: 2px; }
+  border-radius: 25px; }
   .card .card-title {
     color: #fff;
     font-size: 24px;
