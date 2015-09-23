@@ -24,3 +24,11 @@
  .body {
   padding: 4%;
  }
+
+ footer {
+   position: relative;
+ }
+
+ .card-content h2 {
+   margin-bottom: 0;
+ }
