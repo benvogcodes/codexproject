@@ -1,5 +1,10 @@
 <h1><%= @plan.name %></h1>
-<%= link_to "Edit Plan", edit_plan_path(@plan) %>
+
+<%= form_tag(edit_plan_path(@plan), :method => :get) do %>
+  <%= button_tag( :class => "btn waves-effect waves-light") do %>
+    Edit Plan <i class="material-icons right"></i>
+  <% end %>
+<% end %><br>
 
 <div id="current_cards_box">
   <% @current_cards.each do |card| %>
@@ -19,6 +24,7 @@
       </ul>
   <% end %>
 </div>
+
 
 <div id="cards_divider">
   <button id="prev_cards_show_button" class="btn waves-effect waves-light">Show Previous Cards</button>
