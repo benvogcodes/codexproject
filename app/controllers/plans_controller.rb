@@ -55,7 +55,7 @@ class PlansController < ApplicationController
 
     @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
-    # send_twilio_notification("+12026572604", "+12027190379", @message_body)
+    send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
     redirect_to action: "show", id: new_plan.id
   end
