@@ -22,11 +22,18 @@
 
   <p>
     <%= f.label "Notify me by:" %><br>
-    <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
-    <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
+    <div class="switch">
+        <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
+    </div>
+
+    <div class="switch">
+        <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
+    </div>
   </p>
 
   <p>
-    <%= f.submit "Create" %>
+    <%= button_tag( :class => "btn waves-effect waves-light") do %>
+      Create <i class="material-icons right"></i>
+    <% end %>
   </p>
 <% end %>
