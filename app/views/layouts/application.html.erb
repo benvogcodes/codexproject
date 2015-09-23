@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Codex</title>
+  <% favicon_link_tag '/codex_favicon' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -28,10 +29,15 @@
   <%= yield %>
 </div>
 <br>
-<footer class="page-footer">
-  <div class="footer-copyright">
-    © 2015 CODEX
-  </div>
-</footer>
 </body>
+
+<footer>
+<p>
+  © 2015 CODEX
+</p>
+<p>
+  Made with <i class="fa fa-hand-spock-o"></i> in SF
+</p>
+</footer>
+
 </html>
