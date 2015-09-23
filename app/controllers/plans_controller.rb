@@ -3,7 +3,8 @@ require 'sendgrid-ruby'
 class PlansController < ApplicationController
 
   def index
-
+    @user = current_user
+    @plans = @user.plans
   end
 
   def email
@@ -81,11 +82,13 @@ class PlansController < ApplicationController
   private
     def create_query(topic)
       q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-      authenticate_github
+      # authenticate_github
       Octokit.auto_paginate = true
       @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc'})
+    end
 
     def plan_params
       params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
     end
+
 end

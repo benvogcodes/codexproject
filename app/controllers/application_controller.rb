@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
 
     user = client.user
     user.login
+  end
 
   def send_twilio_notification(recipient, sender, message_body)
     account_sid = ENV['TWILIO_SID']
