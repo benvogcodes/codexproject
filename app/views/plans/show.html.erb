@@ -22,7 +22,7 @@
               <li><br></li>
               <!-- <li><b>created: </b><%= card['created'] %></li> -->
               <li><b>Description: </b><%= card['desc'] %></li>
-              <li><b>updated: </b><%= card['updated'] %></li>
+              <li>Last updated <%= time_ago_in_words(card['updated']) %> ago.</li>
               <!-- <li><b>pushed: </b><%= card['pushed'] %></li> -->
               <!-- <li><b>watchers: </b><%= card['watchers'] %></li> -->
               <!-- <li><b>url: </b><%= card['url'] %></li> -->
