@@ -86,3 +86,7 @@ input[name*= plan][id*= plan] {
   position: relative;
   background-color: black;
 }
+
+.small {
+  font-size: .85em;
+}
