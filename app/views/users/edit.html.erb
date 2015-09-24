@@ -1,5 +1,5 @@
 <div class = "edit-account-details">
-  <h1>Edit account details</h1>
+  <h1>Account Settings</h1>
 
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
@@ -8,26 +8,36 @@
   <% end %>
 
   <%= form_for(@user) do |f| %>
-  <p>
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </p>
 
-  <p>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </p>
+    <p>
+      <%= f.label :username %><br>
+      <%= f.text_field :username %>
+    </p>
 
-  <p>
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
-  </p>
+    <p>
+      <%= f.label :password %><br>
+      <%= f.password_field :password %>
+    </p>
 
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+    <p>
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation %>
+    </p>
+
+    <p>
+      <%= button_tag( :class => "btn waves-effect waves-light") do %>
+        Save Changes <i class="material-icons right"></i>
+      <% end %>
+    </p>
+    <% end %>
+
 <br>
-<%= button_to "Delete My Account", user_path(@user), method: :delete %>
+
+<%= form_tag(user_path(@user), :method => :delete) do %>
+  <%= button_tag( :class => "btn waves-effect waves-light") do %>
+    Delete My Account <i class="material-icons right"></i>
+  <% end %>
+<% end %>
+
 
 </div>

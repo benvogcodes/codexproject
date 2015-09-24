@@ -9,24 +9,47 @@
 </form> -->
 
 <h1>Create a New Study Plan</h1>
-<%= form_for :plan, url: plans_path do |f| %>
-  <p>
-    <%= f.label :topic %><br>
-    <%= f.text_field :topic %>
-  </p>
+<div id="new_study_plan_form">
+  <%= form_for :plan, url: plans_path, html: {id: "new_study_plan"} do |f| %>
+    <p>
+      <%= f.label :topic %><br>
+      <%= f.text_field :topic %>
+    </p>
 
-  <p>
-    <%= f.label :language %><br>
-    <%= f.text_field :language %>
-  </p>
+    <p>
+      <%= f.label :language %><br>
+      <%= f.text_field :language %>
+    </p>
 
-  <p>
-    <%= f.label "Notify me by:" %><br>
-    <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
-    <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
-  </p>
+    <p>
+      <%= f.label "Notify me by:" %><br>
+      <div id="twilio_checkbox" class="switch">
+          <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
+      </div>
 
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+      <div  class="switch">
+          <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
+      </div>
+    </p>
+
+    <p>
+      <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
+        Create <i class="material-icons right"></i>
+      <% end %>
+    </p>
+  <% end %>
+
+  <div id="twilio_form">
+    I'm a twilio form!
+  </div>
+
+  <div id="sendgrid_form">
+    <%= render "sendgrid_form" %>
+  </div>
+</div>
+<div id="spinny_div">
+  <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+
+
+<script type="text/javascript" src="js/plans.js"></script>

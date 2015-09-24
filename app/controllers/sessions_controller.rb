@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to '/plans'
     else
       flash[:error] = ["Username or password is invalid."]
       render 'sessions/new'
