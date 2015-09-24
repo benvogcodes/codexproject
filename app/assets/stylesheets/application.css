@@ -90,3 +90,7 @@ input[name*= plan][id*= plan] {
 .small {
   font-size: .85em;
 }
+
+nav {
+  padding: 0 1.5em;
+}
