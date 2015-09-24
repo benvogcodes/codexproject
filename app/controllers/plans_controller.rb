@@ -38,7 +38,7 @@ class PlansController < ApplicationController
   def create
     @user = current_user
 
-    name = "#{Time.now.year}/#{Time.now.month}/#{Time.now.day} #{params['plan']['language']} #{params['plan']['topic']}"
+    name = "#{params['plan']['language']} #{params['plan']['topic']} #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
     new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
                                cards_per_serve: 5, serves: 5, name: name,
                                twilio: false, sendgrid: false,
@@ -55,7 +55,7 @@ class PlansController < ApplicationController
 
     @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
-    send_twilio_notification("+12026572604", "+12027190379", @message_body)
+    # send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
     redirect_to action: "show", id: new_plan.id
   end
