@@ -15,7 +15,7 @@
 <div id="new_study_plan_form">
 
   <% if flash[:error] %>
-    <center><p style="color: red"><%= flash[:error] %></p></center>
+    <p class='error'><%= flash[:error] %></p>
   <% end %>
 
   <%= form_for :plan, url: plans_path, html: {id: "new_study_plan"} do |f| %>
