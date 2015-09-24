@@ -37,7 +37,26 @@
       </div>
     </p>
     <br>
-
+    <div id="sendgrid_form">
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :email %>
+          <%= f.label :email, 'Your Email:' %>
+        </div>
+      </div>
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :subject %>
+          <%= f.label :subject, 'Email Subject:' %>
+        </div>
+      </div>
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :body %>
+          <%= f.label :body, 'Email Body:' %>
+        </div>
+      </div>
+  </div>
     <p align="center">
       <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
         Create <i class="material-icons right"></i>
@@ -49,9 +68,7 @@
 <div id="twilio_form">
   I'm a twilio form!
 </div>
-<div id="sendgrid_form">
-  <%= render "sendgrid_form" %>
-</div>
+
 
 <div id="spinny_div">
   <i class="fa fa-spinner fa-spin fa-5x"></i>

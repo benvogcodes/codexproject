@@ -9,14 +9,36 @@
   <input type='submit'>
 </form> -->
 
+
+  <%= form_for :email, url: plans_email_path, html: {id: "new_study_plan"} do |f| %>
  <div class="row">
     <form method="post" action="/plans/email">
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="example@example.com" id="email" type="text" class="validate" name="email">
-          <label for="email">eMail to:</label>
+          <%= f.text_field :email %>
+          <%= f.label :email, 'Your Email:' %>
         </div>
       </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :subject %>
+          <%= f.label :subject, 'Email Subject:' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :body %>
+          <%= f.label :body, 'Email Body:' %>
+        </div>
+      </div>
+    </form>
+  </div>
+  <% end %>
+<!-- <div class="sendgrid-subscription-widget" data-token="%2FlEKtwWKTM6WCMgr5cUMGFBYABK6SwzH2dUfjO%2FTrOq6jt71N2bCTI2Ti9%2Fa8le41OY8jP8VNhgAzV4D8w%2BsYcIzJUVFsNXOrSCMDn5gfl8%3D">
+
+</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'sendgrid-subscription-widget-js');</script>
+ -->
 <!--         <div class="input-field col s6">
           <input id="topic" type="text" class="validate">
           <label for="topic">Topic:</label>
@@ -28,23 +50,3 @@
           <label for="time">Time of notification:</label>
         </div>
       </div> -->
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="subject" type="text" class="validate" name="subject">
-          <label for="subject">Email Subject:</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="body" type="text" class="validate" name="body">
-          <label for="body">Email Body:</label>
-        </div>
-      </div>
-    </form>
-  </div>
-
-<!-- <div class="sendgrid-subscription-widget" data-token="%2FlEKtwWKTM6WCMgr5cUMGFBYABK6SwzH2dUfjO%2FTrOq6jt71N2bCTI2Ti9%2Fa8le41OY8jP8VNhgAzV4D8w%2BsYcIzJUVFsNXOrSCMDn5gfl8%3D">
-
-</div>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'sendgrid-subscription-widget-js');</script>
- -->

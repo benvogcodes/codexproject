@@ -22,7 +22,6 @@ class PlansController < ApplicationController
     m.subject = params[:subject]
     m.text = params[:body]
     end
-    binding.pry
     puts client.send(mail)
     redirect_to plans_path
   end
@@ -48,13 +47,23 @@ class PlansController < ApplicationController
         else
           topic = ''
         end
+
       create_query(topic)
       @data = new_plan.create_plan(@data.items, @user)
 
       @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
       # send_twilio_notification("+12026572604", "+12027190379", @message_body)
-
+      if params['plan']['sendgrid'] == 't'
+        client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+        mail = SendGrid::Mail.new do |m|
+        m.to = params['plan'][:email]
+        m.from = 'jxu011@ucr.com'
+        m.subject = params['plan'][:subject]
+        m.text = params['plan'][:body]
+        end
+        puts client.send(mail)
+      end
       redirect_to action: "show", id: new_plan.id
     end
   end
