@@ -51,3 +51,31 @@
   position: relative;
   background-color: black;
  }
+ li > a {
+  color: orange;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  -o-transition: color .3s ease;
+  -ms-transition: color .3s ease;
+  transition: color .3s ease;
+ }
+
+ li > a:hover {
+  color: white;
+ }
+
+ .card-action {
+  color: orange;
+  margin-right: 20px;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  -o-transition: color .3s ease;
+  -ms-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: uppercase;
+}
+.card .card-action a:hover {
+  color: white;
+}
+
+
