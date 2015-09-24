@@ -14,9 +14,26 @@
  *= require_tree .
  *= require_self
  */
+button {
+  text-align: center;
+  display: block;
+  margin-left: 30%;
+  margin-right: 30%;
+}
 
 footer {
   position: relative;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+form {
+  display: block;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+h2 {
   text-align: center;
 }
 
@@ -36,9 +53,23 @@ li > a:hover {
 input[name*= plan][id*= plan] {
   width: 350px;
 }
+input[name*= user][id*= user] {
+  width: 350px;
+}
+input[name*= session][id*= session] {
+  width: 350px;
+}
+nav {
+  background-color: #2671A6;
+}
 
 .body {
   padding: 4% 10%;
+}
+
+.paytone-one {
+  font-family: 'Paytone One', sans-serif;
+  font-weight: 400;
 }
 
 .card {
@@ -70,10 +101,17 @@ input[name*= plan][id*= plan] {
 }
 
 .card-content {
-   height: 250px;
+  height: 250px;
 }
 .card-content h2 {
  margin-bottom: 0;
+}
+
+div.collection.with-header, .collection-item {
+  width: 450px;
+  display: block;
+  margin-left: 25%;
+  margin-right: 30%;
 }
 
 .home-image {
