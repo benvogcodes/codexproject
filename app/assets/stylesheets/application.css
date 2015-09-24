@@ -34,3 +34,8 @@
  .card-content h2 {
    margin-bottom: 0;
  }
+
+ #current_cards_box{
+  position: relative;
+  background-color: black;
+ }
