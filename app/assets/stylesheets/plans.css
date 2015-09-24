@@ -37,3 +37,15 @@
   display: inline-block;
   margin: 0 auto;
 }
+
+#demo_box {
+  text-align: center;
+}
+
+#demo_box button {
+  background-color: #ff3d00;
+}
+
+#demo_box button:hover {
+  background-color: #ff6e40;
+}
