@@ -7,25 +7,6 @@ class PlansController < ApplicationController
     @plans = @user.plans
   end
 
-  # def email
-  #     #
-  #   # As a hash
-  #   p ENV['SENDGRID_USERNAME']
-  #   p ENV['SENDGRID_PASSWORD']
-  #   client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
-  #
-  #   p client
-  #   mail = SendGrid::Mail.new do |m|
-  #
-  #   m.to = params[:email]
-  #   m.from = 'jxu011@ucr.com'
-  #   m.subject = "Your New Plan is Ready"
-  #   m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan} has been created. Login to check it out!"
-  #   end
-  #   puts client.send(mail)
-  #   redirect_to plans_path
-  # end
-
   def new
 
   end
@@ -41,7 +22,8 @@ class PlansController < ApplicationController
       new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
                                  cards_per_serve: 5, serves: 5, name: name,
                                  twilio: false, sendgrid: false,
-                                 language: params['plan']['language'], served: 0)
+                                 language: params['plan']['language'], served: 0,
+                                 phone_number: 0)
         if params['plan']['topic'].length > 1
           topic = params['plan']['topic'] + '+'
         else
