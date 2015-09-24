@@ -3,10 +3,10 @@
   <h2 class="paytone-one">Account Settings</h2>
 
   <br>
-  
+
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
-      <p style="color: red"><%= error %></p>
+      <p class='error'><%= error %></p>
     <% end %>
   <% end %>
 
