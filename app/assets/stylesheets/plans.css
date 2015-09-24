@@ -3,12 +3,13 @@
 }
 
 #prev_cards_box {
-  display:none;
+  display: none;
 }
 
 #prev_cards_hide_button {
   display: none;
   margin: 0 auto;
+
 }
 
 #prev_cards_show_button {
@@ -16,9 +17,17 @@
   display: block;
 }
 #sendgrid_form {
-  display:none;
+  display: none;
 }
 
 #twilio_form {
-  display:none;
+  display: none;
+}
+
+#spinny_div {
+  display: none;
+}
+
+#spinny_div i {
+  margin: 0 auto;
 }

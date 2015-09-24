@@ -11,3 +11,16 @@ $('#plan_twilio').click(function() {
 $('#plan_sendgrid').click(function() {
   $('#sendgrid_form').toggle('display');
 })
+$('#new_plan_button').click(function(e){
+  // e.preventDefault();
+  $('#new_study_plan_form').toggle('display');
+  $('#spinny_div').toggle('display');
+  // var $form = $(e.target);
+  // var req = $.ajax({
+  //   type: "POST",
+  //   url: '/plans',
+  //   data: $('#new_study_plan').serialize();
+  // }).done(function(){
+  //   window.location.assign("/plans/show_redirect")
+  // });
+});
