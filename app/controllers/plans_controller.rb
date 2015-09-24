@@ -51,9 +51,9 @@ class PlansController < ApplicationController
       create_query(topic)
       @data = new_plan.create_plan(@data.items, @user)
 
-      @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
-
-      # send_twilio_notification("+12026572604", "+12027190379", @message_body)
+      @message_body = params['plan'][:message_body]
+      @phone_number = params['plan'][:phone_number].gsub!(/[- ()]/, '')
+      send_twilio_notification(@phone_number, "+12027190379", @message_body) if params['plan']['twilio'] == 't'
       if params['plan']['sendgrid'] == 't'
         client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
         mail = SendGrid::Mail.new do |m|

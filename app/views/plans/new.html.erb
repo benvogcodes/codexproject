@@ -38,6 +38,20 @@
       </div>
     </p>
     <br>
+    <div id="twilio_form">
+      <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :phone_number %>
+          <%= f.label :phone_number, 'Your Phone Number:' %>
+        </div>
+      </div>
+      <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :message_body %>
+          <%= f.label :message_body, 'Your Message:' %>
+        </div>
+      </div>
+    </div>
     <div id="sendgrid_form">
       <div class="row" id="sendgrid-dropdown">
         <div class="input-field col s12">
@@ -66,9 +80,7 @@
   <% end %>
 </div>
 
-<div id="twilio_form">
-  I'm a twilio form!
-</div>
+
 
 
 <div id="spinny_div">
