@@ -1,2 +1,5 @@
 <h1>Repos#new</h1>
 <p>Find me in app/views/repos/new.html.erb</p>
+
+<% yesterday = DateTime.now - 4.months - 13.days %>
+<%= time_ago_in_words(yesterday) %>
