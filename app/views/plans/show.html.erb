@@ -20,25 +20,25 @@
 
 <div id="current_cards_box">
   <% @current_cards.each do |card| %>
-      <div class="col s12 m6">
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <ul>
-              <li><a href="<%= card['url'] %>" target="_blank"><h2><b><%= card['name'] %></b></h2></a>
-                <a href="https://www.github.com/<%= card['user'] %>" target="_blank"><i class="fa fa-github"></i> <%= card['user'] %></a>&nbsp;&nbsp;
-                <a href="<%= card['url'] %>/stargazers" target="_blank"><i class="fa fa-star"></i> <%= card['stars'] %></a>&nbsp;&nbsp;
-                <a href="<%= card['url'] %>/network" target="_blank"><i class="fa fa-code-fork"></i> <%= card['forks'] %></a>
-              </li>
-              <li><br></li>
-              <li><b>Description: </b><%= card['desc'] %></li>
-              <li class="small">Last updated: <%= time_ago_in_words(card['updated']) %> ago.</li>
-            </ul>
-          </div>
-          <div class="card-action">
-            <a href="<%= card['url'] %>" target="_blank">View on Github</a>
-          </div>
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <ul>
+            <li><a href="<%= card['url'] %>" target="_blank"><h2><b><%= card['name'] %></b></h2></a>
+              <a href="https://www.github.com/<%= card['user'] %>" target="_blank"><i class="fa fa-github"></i> <%= card['user'] %></a>&nbsp;&nbsp;
+              <a href="<%= card['url'] %>/stargazers" target="_blank"><i class="fa fa-star"></i> <%= card['stars'] %></a>&nbsp;&nbsp;
+              <a href="<%= card['url'] %>/network" target="_blank"><i class="fa fa-code-fork"></i> <%= card['forks'] %></a>
+            </li>
+            <li><br></li>
+            <li><b>Description: </b><%= card['desc'] %></li>
+            <li class="small">Last updated: <%= time_ago_in_words(card['updated']) %> ago.</li>
+          </ul>
+        </div>
+        <div class="card-action">
+          <a href="<%= card['url'] %>" target="_blank">View on Github</a>
         </div>
       </div>
+    </div>
   <% end %>
 </div>
 
@@ -56,12 +56,12 @@
   <% @prev_cards.each do |card| %>
     <div class="col s12 m6">
       <div class="card blue-grey darken-1">
-        <div class="card-content">
+        <div class="card-content white-text">
           <ul>
-            <li><a href="<%= card['url'] %>"><h2><b><%= card['name'] %></b></h2></a>
-              <a href="https://www.github.com/<%= card['user'] %>"><i class="fa fa-github"></i> <%= card['user'] %></a>&nbsp;&nbsp;
-              <a href="<%= card['url'] %>/stargazers"><i class="fa fa-star"></i> <%= card['stars'] %></a>&nbsp;&nbsp;
-              <a href="<%= card['url'] %>/network"><i class="fa fa-code-fork"></i> <%= card['forks'] %></a>
+            <li><a href="<%= card['url'] %>" target="_blank"><h2><b><%= card['name'] %></b></h2></a>
+              <a href="https://www.github.com/<%= card['user'] %>" target="_blank"><i class="fa fa-github"></i> <%= card['user'] %></a>&nbsp;&nbsp;
+              <a href="<%= card['url'] %>/stargazers" target="_blank"><i class="fa fa-star"></i> <%= card['stars'] %></a>&nbsp;&nbsp;
+              <a href="<%= card['url'] %>/network" target="_blank"><i class="fa fa-code-fork"></i> <%= card['forks'] %></a>
             </li>
             <li><br></li>
             <li><b>Description: </b><%= card['desc'] %></li>
@@ -69,7 +69,7 @@
           </ul>
         </div>
         <div class="card-action">
-          <a href="<%= card['url'] %>">View on Github</a>
+          <a href="<%= card['url'] %>" target="_blank">View on Github</a>
         </div>
       </div>
     </div>
