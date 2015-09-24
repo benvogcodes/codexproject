@@ -14,15 +14,10 @@ class PlansController < ApplicationController
     p ENV['SENDGRID_PASSWORD']
     client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
 
-    # Or as a block
-    # client = SendGrid::Client.new do |c|
-    #   c.api_user = 'SENDGRID_USERNAME'
-    #   c.api_key = 'SENDGRID_PASSWORD'
-    # end
     p client
     mail = SendGrid::Mail.new do |m|
 
-    m.to = params[:to]
+    m.to = params[:email]
     m.from = 'jxu011@ucr.com'
     m.subject = params[:subject]
     m.text = params[:body]
@@ -36,7 +31,6 @@ class PlansController < ApplicationController
   end
 
   def create
-
     if params['plan']['language'] == '' && params['plan']['topic'] == ''
       flash[:error] = "Please fill out one of the fields"
       render 'new'
@@ -48,12 +42,11 @@ class PlansController < ApplicationController
                                  cards_per_serve: 5, serves: 5, name: name,
                                  twilio: false, sendgrid: false,
                                  language: params['plan']['language'], served: 0)
-
-      if params['plan']['topic'].length > 1
-        topic = params['plan']['topic'] + '+'
-      else
-        topic = ''
-      end
+        if params['plan']['topic'].length > 1
+          topic = params['plan']['topic'] + '+'
+        else
+          topic = ''
+        end
 
       create_query(topic)
       @data = new_plan.create_plan(@data.items, @user)
@@ -61,7 +54,16 @@ class PlansController < ApplicationController
       @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
 
       # send_twilio_notification("+12026572604", "+12027190379", @message_body)
-
+      if params['plan']['sendgrid'] == 't'
+        client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+        mail = SendGrid::Mail.new do |m|
+        m.to = params['plan'][:email]
+        m.from = 'jxu011@ucr.com'
+        m.subject = params['plan'][:subject]
+        m.text = params['plan'][:body]
+        end
+        puts client.send(mail)
+      end
       redirect_to action: "show", id: new_plan.id
     end
   end

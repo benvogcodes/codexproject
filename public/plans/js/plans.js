@@ -15,6 +15,7 @@ $('#new_plan_button').click(function(e){
   // e.preventDefault();
   $('#new_study_plan_form').toggle('display');
   $('#spinny_div').toggle('display');
+
   // var $form = $(e.target);
   // var req = $.ajax({
   //   type: "POST",
