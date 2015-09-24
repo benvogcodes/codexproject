@@ -22,11 +22,11 @@
 
   <p>
     <%= f.label "Notify me by:" %><br>
-    <div class="switch">
+    <div id="twilio_checkbox" class="switch">
         <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
     </div>
 
-    <div class="switch">
+    <div  class="switch">
         <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
     </div>
   </p>
@@ -37,3 +37,13 @@
     <% end %>
   </p>
 <% end %>
+
+<div id="twilio_form">
+  I'm a twilio form!
+</div>
+
+<div id="sendgrid_form">
+  I'm a sendgrid form!
+</div>
+
+<script type="text/javascript" src="js/plans.js"></script>
