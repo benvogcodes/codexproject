@@ -8,8 +8,12 @@
 <!--
 </form> -->
 
-<h1>Create a New Study Plan</h1>
+<h2 class="paytone-one">Create Plan</h2>
+
+<br>
+
 <div id="new_study_plan_form">
+
   <%= form_for :plan, url: plans_path, html: {id: "new_study_plan"} do |f| %>
     <p>
       <%= f.label :topic %><br>
@@ -32,6 +36,8 @@
       </div>
     </p>
 
+    <br>
+
     <p>
       <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
         Create <i class="material-icons right"></i>
@@ -46,10 +52,11 @@
   <div id="sendgrid_form">
     <%= render "sendgrid_form" %>
   </div>
+
 </div>
+
 <div id="spinny_div">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
-
 
 <script type="text/javascript" src="js/plans.js"></script>

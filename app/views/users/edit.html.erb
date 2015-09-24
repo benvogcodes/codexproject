@@ -1,6 +1,9 @@
 <div class = "edit-account-details">
-  <h1>Account Settings</h1>
 
+  <h2 class="paytone-one">Account Settings</h2>
+
+  <br>
+  
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
       <p style="color: red"><%= error %></p>
@@ -24,12 +27,14 @@
       <%= f.password_field :password_confirmation %>
     </p>
 
+    <br>
+
     <p>
       <%= button_tag( :class => "btn waves-effect waves-light") do %>
         Save Changes <i class="material-icons right"></i>
       <% end %>
     </p>
-    <% end %>
+  <% end %>
 
 <br>
 
@@ -38,6 +43,5 @@
     Delete My Account <i class="material-icons right"></i>
   <% end %>
 <% end %>
-
 
 </div>
