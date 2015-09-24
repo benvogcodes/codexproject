@@ -36,6 +36,10 @@ class PlansController < ApplicationController
   end
 
   def create
+    puts '********************'
+    puts params
+    puts '********************'
+
     @user = current_user
 
     name = "#{params['plan']['language']} #{params['plan']['topic']} #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
@@ -58,6 +62,11 @@ class PlansController < ApplicationController
     # send_twilio_notification("+12026572604", "+12027190379", @message_body)
 
     redirect_to action: "show", id: new_plan.id
+  end
+
+  def show_redirect
+    @plan = @user.plans.last
+    redirect_to action: "show", id: @plan.id
   end
 
   def show
