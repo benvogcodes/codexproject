@@ -120,6 +120,11 @@ div.collection.with-header, .collection-item {
   height: 100%;
 }
 
+.error {
+  color: red;
+  text-align: center
+}
+
 #current_cards_box{
   position: relative;
   background-color: black;
