@@ -16,10 +16,10 @@
             <ul>
               <li><a href="<%= card['url'] %>"><h2><b><%= card['name'] %></b></h2></a>
                 <a href="https://www.github.com/<%= card['user'] %>"><i class="fa fa-github"></i> <%= card['user'] %></a>&nbsp;&nbsp;
-                <i class="fa fa-star"></i> <%= card['stars'] %>&nbsp;&nbsp;
-                <i class="fa fa-code-fork"></i> <%= card['forks'] %>
+                <a href="<%= card['url'] %>/stargazers"><i class="fa fa-star"></i> <%= card['stars'] %></a>&nbsp;&nbsp;
+                <a href="<%= card['url'] %>/network"><i class="fa fa-code-fork"></i> <%= card['forks'] %></a>
               </li>
-              <li><br></li>
+              <li><br></li><a href="#"></a>
               <!-- <li><b>created: </b><%= card['created'] %></li> -->
               <li><b>Description: </b><%= card['desc'] %></li>
               <li><b>updated: </b><%= card['updated'] %></li>
