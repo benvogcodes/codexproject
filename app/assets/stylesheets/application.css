@@ -73,16 +73,19 @@ nav {
 }
 
 .card  {
-  position: relative;
+  /*position: relative;*/
   overflow: hidden;
-  margin: 0.5rem 0 1rem 0;
+  /*margin: 0.5rem 0 1rem 0;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #fff;
   transition: box-shadow .25s;
   border-radius: 25px;
-  width: 47%;
-  height: 60%;
-  margin-right: 3%;
-  float: left;
+  width: 70%;
+  /*height: 60%;*/
+  /*margin-right: 3%;*/
+  /*float: left;*/
 }
 
 .card-action {
@@ -113,7 +116,10 @@ nav {
 }
 
 .card-content {
-  height: 250px;
+  /*height: 250px;*/
+  display: block;
+  margin-left: auto;
+  margin-right:
 }
 .card-content h2 {
  margin-bottom: 0;
@@ -139,7 +145,7 @@ div.collection.with-header, .collection-item {
 
 #current_cards_box{
   position: relative;
-  background-color: black;
+  /*background-color: black;*/
 }
 
 .small {
