@@ -1,5 +1,8 @@
 <h2>Your Plans</h2>
-
+  <%= form_tag(new_plan_path(@plan), :method => :get) do %>
+  <%= button_tag( :class => "btn waves-effect waves-light") do %>
+    Create New Plan <i class="material-icons right"></i>
+  <% end %>
   <div class="collection with-header">
     <% @plans.each do |plan| %>
      <%= link_to plan.name, plan_path(plan), class: "collection-item" %>
@@ -8,10 +11,7 @@
 
 <br>
 
-  <%= form_tag(new_plan_path(@plan), :method => :get) do %>
-    <%= button_tag( :class => "btn waves-effect waves-light") do %>
-      Create Plan <i class="material-icons right"></i>
-    <% end %>
+
   <% end %>
 
 <br>
