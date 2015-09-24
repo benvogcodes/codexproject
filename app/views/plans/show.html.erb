@@ -1,10 +1,12 @@
-<h1><%= @plan.name %></h1>
+<h2 class="paytone-one"><%= @plan.name %></h2>
 
 <%= form_tag(edit_plan_path(@plan), :method => :get) do %>
   <%= button_tag( :class => "btn waves-effect waves-light") do %>
     Edit Plan <i class="material-icons right"></i>
   <% end %>
 <% end %><br>
+
+<br>
 
 <div id="current_cards_box">
   <% @current_cards.each do |card| %>
@@ -32,11 +34,12 @@
 
 <% if @prev_cards.count > 0 %>
 
-<div id="cards_divider">
-  <br>
-  <button id="prev_cards_show_button" class="btn waves-effect waves-light">Show Previous Cards</button>
-  <button id="prev_cards_hide_button" class="btn waves-effect waves-light">Hide Previous Cards</button>
-</div>
+  <div id="cards_divider">
+    <br>
+    <button id="prev_cards_show_button" class="btn waves-effect waves-light">Show Previous Cards</button>
+    <button id="prev_cards_hide_button" class="btn waves-effect waves-light">Hide Previous Cards</button>
+  </div>
+
 <% end %>
 
 <div id="prev_cards_box">
