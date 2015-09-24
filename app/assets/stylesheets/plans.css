@@ -26,8 +26,14 @@
 
 #spinny_div {
   display: none;
+  text-align: center;
 }
 
 #spinny_div i {
+  margin: 0 auto;
+}
+
+.preloader-wrapper {
+  display: inline-block;
   margin: 0 auto;
 }
