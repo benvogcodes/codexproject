@@ -39,11 +39,13 @@
   <% end %>
 </div>
 
+<% if @prev_cards.count > 0 %>
 <div id="cards_divider">
   <button id="prev_cards_show_button" class="btn waves-effect waves-light">Show Previous Cards</button>
   <button id="prev_cards_hide_button" class="btn waves-effect waves-light">Hide Previous Cards</button>
   <!-- <hr> -->
 </div>
+<% end %>
 
 <div id="prev_cards_box">
   <% @prev_cards.each do |card| %>
