@@ -163,3 +163,7 @@ div.collection.with-header, .collection-item {
 .small {
   font-size: .75em;
 }
+
+.card_action li {
+  color: #fff;
+}
