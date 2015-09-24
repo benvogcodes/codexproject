@@ -3,7 +3,7 @@
 
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
-      <p><%= error %></p>
+      <p style="color: red"><%= error %></p>
     <% end %>
   <% end %>
 
@@ -20,7 +20,9 @@
     </p>
 
     <p>
-      <%= f.submit "Log In" %>
+      <%= button_tag( :class => "btn waves-effect waves-light") do %>
+        Log In <i class="material-icons right"></i>
+      <% end %>
     </p>
   <% end %>
 </div>
