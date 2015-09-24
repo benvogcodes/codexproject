@@ -6,3 +6,11 @@
 #prev_cards_hide_button {
   display:none;
 }
+
+#sendgrid_form {
+  display:none;
+}
+
+#twilio_form {
+  display:none;
+}
