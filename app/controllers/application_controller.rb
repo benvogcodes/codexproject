@@ -29,9 +29,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate_github
     client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
-
-    user = client.user
-    user.login
+    #commented out b/c I don't want to enter credentials
+    # user = client.user
+    # user.login
   end
 
   def send_twilio_notification(recipient, sender, message_body)
