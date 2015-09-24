@@ -30,6 +30,18 @@
   padding: 4% 10%;
  }
 
+.card {
+  position: relative;
+  overflow: hidden;
+  margin: 0.5rem 0 1rem 0;
+  background-color: #fff;
+  transition: box-shadow .25s;
+  border-radius: 25px;
+  width: 47%;
+  height: 60%;
+  margin-right: 3%;
+  float: left;
+}
 
  .card-content h2 {
    margin-bottom: 0;
