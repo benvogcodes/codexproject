@@ -27,6 +27,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    p "*" * 130
+    p user_params
+    p "*" * 130
     if @user.update(user_params)
       redirect_to plans_path
     else

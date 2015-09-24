@@ -7,24 +7,24 @@ class PlansController < ApplicationController
     @plans = @user.plans
   end
 
-  def email
-      #
-    # As a hash
-    p ENV['SENDGRID_USERNAME']
-    p ENV['SENDGRID_PASSWORD']
-    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
-
-    p client
-    mail = SendGrid::Mail.new do |m|
-
-    m.to = params[:email]
-    m.from = 'jxu011@ucr.com'
-    m.subject = params[:subject]
-    m.text = params[:body]
-    end
-    puts client.send(mail)
-    redirect_to plans_path
-  end
+  # def email
+  #     #
+  #   # As a hash
+  #   p ENV['SENDGRID_USERNAME']
+  #   p ENV['SENDGRID_PASSWORD']
+  #   client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+  #
+  #   p client
+  #   mail = SendGrid::Mail.new do |m|
+  #
+  #   m.to = params[:email]
+  #   m.from = 'jxu011@ucr.com'
+  #   m.subject = "Your New Plan is Ready"
+  #   m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan} has been created. Login to check it out!"
+  #   end
+  #   puts client.send(mail)
+  #   redirect_to plans_path
+  # end
 
   def new
 
@@ -51,16 +51,16 @@ class PlansController < ApplicationController
       create_query(topic)
       @data = new_plan.create_plan(@data.items, @user)
 
-      @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
-
-      # send_twilio_notification("+12026572604", "+12027190379", @message_body)
+      @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan} has been created. Login to check it out!"
+      @phone_number = params['plan'][:phone_number].gsub!(/[- ()]/, '')
+      send_twilio_notification(@phone_number, "+12027190379", @message_body) if params['plan']['twilio'] == 't'
       if params['plan']['sendgrid'] == 't'
         client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
         mail = SendGrid::Mail.new do |m|
         m.to = params['plan'][:email]
         m.from = 'jxu011@ucr.com'
-        m.subject = params['plan'][:subject]
-        m.text = params['plan'][:body]
+        m.subject = "Your New Plan is Ready"
+        m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan.name} has been created. Login to check it out!"
         end
         puts client.send(mail)
       end

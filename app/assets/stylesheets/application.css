@@ -62,6 +62,15 @@ input[name*= session][id*= session] {
 #sendgrid-dropdown {
   width: 120%;
 }
+#twilio-dropdown {
+  width: 120%;
+}
+div.row{
+  border: none;
+}
+div.row {
+  border: none;
+}
 nav {
   background-color: #2671A6;
 }
