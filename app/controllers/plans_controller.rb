@@ -91,12 +91,20 @@ class PlansController < ApplicationController
     redirect_to plans_path
   end
 
+  def demo_advance
+    @plan = Plan.find(params[:id])
+    @plan.served += 1
+    # send mail
+    # send text
+    # redirect to show page
+  end
+
   private
     def create_query(topic)
       q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-      # authenticate_github
+      authenticate_github
       Octokit.auto_paginate = false
-      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100})
+      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
     end
 
     def plan_params
