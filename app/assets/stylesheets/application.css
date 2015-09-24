@@ -20,10 +20,18 @@ footer {
   text-align: center;
 }
 
-/*html {
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(224,224,224,1)), color-stop(35%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
-  background-repeat: repeat-y;
-}*/
+li > a {
+  color: orange;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  -o-transition: color .3s ease;
+  -ms-transition: color .3s ease;
+  transition: color .3s ease;
+}
+
+li > a:hover {
+  color: white;
+}
 
 input[name*= plan][id*= plan] {
   width: 350px;
@@ -46,6 +54,21 @@ input[name*= plan][id*= plan] {
   float: left;
 }
 
+.card-action {
+  color: orange;
+  margin-right: 20px;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  -o-transition: color .3s ease;
+  -ms-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: uppercase;
+}
+
+.card .card-action a:hover {
+  color: white;
+}
+
 .card-content {
    height: 250px;
 }
@@ -60,6 +83,6 @@ input[name*= plan][id*= plan] {
 }
 
 #current_cards_box{
-position: relative;
-background-color: black;
+  position: relative;
+  background-color: black;
 }
