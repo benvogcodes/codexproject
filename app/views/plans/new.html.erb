@@ -23,40 +23,34 @@
       <%= f.label :topic %><br>
       <%= f.text_field :topic %>
     </p>
-
     <p>
       <%= f.label :language %><br>
       <%= f.text_field :language %>
     </p>
-
     <p>
       <%= f.label "Notify me by:" %><br>
       <div id="twilio_checkbox" class="switch">
           <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
       </div>
-
       <div  class="switch">
           <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
       </div>
     </p>
-
     <br>
 
-    <p>
+    <p align="center">
       <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
         Create <i class="material-icons right"></i>
       <% end %>
     </p>
   <% end %>
+</div>
 
-  <div id="twilio_form">
-    I'm a twilio form!
-  </div>
-
-  <div id="sendgrid_form">
-    <%= render "sendgrid_form" %>
-  </div>
-
+<div id="twilio_form">
+  I'm a twilio form!
+</div>
+<div id="sendgrid_form">
+  <%= render "sendgrid_form" %>
 </div>
 
 <div id="spinny_div">
