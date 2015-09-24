@@ -1,5 +1,5 @@
 require 'sendgrid-ruby'
-
+require 'pry'
 class PlansController < ApplicationController
 
   def index
@@ -73,6 +73,7 @@ class PlansController < ApplicationController
     @plan = Plan.find_by(id: params[:id])
     @current_cards = []
     @prev_cards = []
+
     servings = @plan.servings
     servings.each do |serving|
       if serving.delivery == @plan.served
