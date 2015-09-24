@@ -2179,7 +2179,10 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #ee6e73; }
+  background-color: #ee6e73;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;}
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
@@ -5560,7 +5563,12 @@ small {
   margin: 0.5rem 0 1rem 0;
   background-color: #fff;
   transition: box-shadow .25s;
-  border-radius: 2px; }
+  border-radius: 25px;
+  width: 47%;
+  height: 60%;
+  margin-right: 3%;
+  float: left;
+   }
   .card .card-title {
     color: #fff;
     font-size: 24px;
