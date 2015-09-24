@@ -1,4 +1,4 @@
-<form method="post" action="/plans/email">
+<!-- <form method="post" action="/plans/email">
   Subscribe to email alerts for a Github topic:
   Enter your email address: <br><input type='textfield' name='to'><br>
   Enter the topic you want to be notified about: <br><input type='textfield' name='from'><br>
@@ -7,9 +7,44 @@
   Enter email title: <br><input type='textfield' name='subject'><br>
   Enter email text: <br><input type='textfield' name='body' value='email body'><br>
   <input type='submit'>
-</form>
+</form> -->
 
-<div class="sendgrid-subscription-widget" data-token="%2FlEKtwWKTM6WCMgr5cUMGFBYABK6SwzH2dUfjO%2FTrOq6jt71N2bCTI2Ti9%2Fa8le41OY8jP8VNhgAzV4D8w%2BsYcIzJUVFsNXOrSCMDn5gfl8%3D">
+ <div class="row">
+    <form method="post" action="/plans/email">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="example@example.com" id="email" type="text" class="validate" name="email">
+          <label for="email">eMail to:</label>
+        </div>
+      </div>
+<!--         <div class="input-field col s6">
+          <input id="topic" type="text" class="validate">
+          <label for="topic">Topic:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="time" type="text" class="validate">
+          <label for="time">Time of notification:</label>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="subject" type="text" class="validate" name="subject">
+          <label for="subject">Email Subject:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="body" type="text" class="validate" name="body">
+          <label for="body">Email Body:</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<!-- <div class="sendgrid-subscription-widget" data-token="%2FlEKtwWKTM6WCMgr5cUMGFBYABK6SwzH2dUfjO%2FTrOq6jt71N2bCTI2Ti9%2Fa8le41OY8jP8VNhgAzV4D8w%2BsYcIzJUVFsNXOrSCMDn5gfl8%3D">
 
 </div>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'sendgrid-subscription-widget-js');</script>
+ -->
