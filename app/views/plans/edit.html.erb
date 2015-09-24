@@ -22,9 +22,33 @@
 
     <p>
       <%= f.label "Notify me by:" %><br>
-      <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
-      <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
+      <div id="twilio_checkbox" class="switch">
+          <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
+      </div>
+      <div  class="switch">
+          <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
+      </div>
     </p>
+
+    <br>
+
+    <div id="twilio_form">
+      <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :phone_number %>
+          <%= f.label :phone_number, 'Your Phone Number:' %>
+        </div>
+      </div>
+    </div>
+
+    <div id="sendgrid_form">
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :email %>
+          <%= f.label :email, 'Your Email:' %>
+        </div>
+      </div>
+    </div>
 
     <br>
 
@@ -35,7 +59,7 @@
     </p>
   <% end %>
 
-<br>
+  <br>
 
   <%= form_tag(plan_path(@plan), :method => :delete) do %>
     <%= button_tag( :class => "btn waves-effect waves-light") do %>
@@ -43,6 +67,6 @@
     <% end %>
   <% end %>
 
-<br>
+  <br>
 
 </div>
