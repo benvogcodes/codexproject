@@ -38,7 +38,7 @@ h2.paytone-one {
 }
 
 li > a {
-  color: orange;
+  /*color: white;*/
   -webkit-transition: color .3s ease;
   -moz-transition: color .3s ease;
   -o-transition: color .3s ease;
@@ -46,9 +46,9 @@ li > a {
   transition: color .3s ease;
 }
 
-li > a:hover {
-  color: white;
-}
+/*li > a:hover {*/
+  /*color: #64b5f6;*/
+/*}*/
 
 input[name*= plan][id*= plan] {
   width: 350px;
@@ -72,7 +72,7 @@ nav {
   font-weight: 400;
 }
 
-.card {
+.card  {
   position: relative;
   overflow: hidden;
   margin: 0.5rem 0 1rem 0;
@@ -86,7 +86,7 @@ nav {
 }
 
 .card-action {
-  color: orange;
+  /*color: orange;*/
   margin-right: 20px;
   -webkit-transition: color .3s ease;
   -moz-transition: color .3s ease;
@@ -96,8 +96,20 @@ nav {
   text-transform: uppercase;
 }
 
-.card .card-action a:hover {
-  color: white;
+.card a {
+  color: #fff;
+}
+
+.card a:hover {
+  color: #64b5f6;
+}
+
+.card-action a {
+  color: #fff;
+}
+
+.card-action a:hover {
+  color: #64b5f6;
 }
 
 .card-content {
@@ -123,4 +135,8 @@ div.collection.with-header, .collection-item {
 #current_cards_box{
   position: relative;
   background-color: black;
+}
+
+.small {
+  font-size: .75em;
 }
