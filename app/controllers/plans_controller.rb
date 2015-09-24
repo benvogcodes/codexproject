@@ -58,7 +58,7 @@ class PlansController < ApplicationController
         client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
         mail = SendGrid::Mail.new do |m|
         m.to = params['plan'][:email]
-        m.from = 'jxu011@ucr.com'
+        m.from = 'teamcodex11@gmail.com'
         m.subject = "Your New Plan is Ready"
         m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan.name} has been created. Login to check it out!"
         end
