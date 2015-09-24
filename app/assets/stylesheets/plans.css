@@ -1,12 +1,20 @@
+#cards_divider {
+  clear: both;
+}
 
 #prev_cards_box {
   display:none;
 }
 
 #prev_cards_hide_button {
-  display:none;
+  display: none;
+  margin: 0 auto;
 }
 
+#prev_cards_show_button {
+  margin: 0 auto;
+  display: block;
+}
 #sendgrid_form {
   display:none;
 }
