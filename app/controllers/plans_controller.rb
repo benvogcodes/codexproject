@@ -64,7 +64,7 @@ class PlansController < ApplicationController
     @plan = Plan.find_by(id: params[:id])
     @current_cards = []
     @prev_cards = []
-    binding.pry
+
     servings = @plan.servings
     servings.each do |serving|
       if serving.delivery == @plan.served
