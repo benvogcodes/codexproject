@@ -20,10 +20,10 @@ footer {
   text-align: center;
 }
 
-html {
+/*html {
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(224,224,224,1)), color-stop(35%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
   background-repeat: repeat-y;
-}
+}*/
 
 input[name*= plan][id*= plan] {
   width: 350px;
@@ -46,6 +46,9 @@ input[name*= plan][id*= plan] {
   float: left;
 }
 
+.card-content {
+   height: 250px;
+}
 .card-content h2 {
  margin-bottom: 0;
 }
