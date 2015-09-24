@@ -15,20 +15,31 @@
  *= require_self
  */
 
- footer {
+footer {
   position: relative;
   text-align: center;
- }
+}
 
- .home-image {
-    border: 0px;
-    width: 100%;
-    height: 100%;
- }
+li > a {
+  color: orange;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  -o-transition: color .3s ease;
+  -ms-transition: color .3s ease;
+  transition: color .3s ease;
+}
 
- .body {
+li > a:hover {
+  color: white;
+}
+
+input[name*= plan][id*= plan] {
+  width: 350px;
+}
+
+.body {
   padding: 4% 10%;
- }
+}
 
 .card {
   position: relative;
@@ -43,28 +54,7 @@
   float: left;
 }
 
- .card-content h2 {
-   margin-bottom: 0;
- }
-
- #current_cards_box{
-  position: relative;
-  background-color: black;
- }
- li > a {
-  color: orange;
-  -webkit-transition: color .3s ease;
-  -moz-transition: color .3s ease;
-  -o-transition: color .3s ease;
-  -ms-transition: color .3s ease;
-  transition: color .3s ease;
- }
-
- li > a:hover {
-  color: white;
- }
-
- .card-action {
+.card-action {
   color: orange;
   margin-right: 20px;
   -webkit-transition: color .3s ease;
@@ -74,8 +64,25 @@
   transition: color .3s ease;
   text-transform: uppercase;
 }
+
 .card .card-action a:hover {
   color: white;
 }
 
+.card-content {
+   height: 250px;
+}
+.card-content h2 {
+ margin-bottom: 0;
+}
 
+.home-image {
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#current_cards_box{
+  position: relative;
+  background-color: black;
+}

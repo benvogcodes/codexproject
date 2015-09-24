@@ -1,10 +1,11 @@
 <form method="post" action="/plans/email">
   Subscribe to email alerts for a Github topic:
-  Enter your email address: <input type='textfield' name='to'><br>
-  Enter the topic you want to be notified about: <input type='textfield' name='from'><br>
-  What time would you like email notifications? <br>
-  Enter email title: <input type='textfield' name='subject'><br>
-  Enter email text: <input type='textfield' name='body' value='email body'><br>
+  Enter your email address: <br><input type='textfield' name='to'><br>
+  Enter the topic you want to be notified about: <br><input type='textfield' name='from'><br>
+  What time would you like email notifications? <br><input type='radio' name='daily' value='daily'><br>
+  <input type='radio' name='weekly' value='weekly'><br>
+  Enter email title: <br><input type='textfield' name='subject'><br>
+  Enter email text: <br><input type='textfield' name='body' value='email body'><br>
   <input type='submit'>
 </form>
 
