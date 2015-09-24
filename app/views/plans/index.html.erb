@@ -1,19 +1,23 @@
-<h1>Your Plans</h1>
-<ul>
+<h2>Your Plans</h2>
+
+  <div class="collection with-header">
+    <% @plans.each do |plan| %>
+     <%= link_to plan.name, plan_path(plan), class: "collection-item" %>
+    <% end %>
+  </div>
+
+<br>
+
   <%= form_tag(new_plan_path(@plan), :method => :get) do %>
     <%= button_tag( :class => "btn waves-effect waves-light") do %>
       Create Plan <i class="material-icons right"></i>
     <% end %>
   <% end %>
 
-  <% @plans.each do |plan| %>
-   <li><h4><%= link_to plan.name, plan_path(plan) %></h4></li>
-  <% end %>
-</ul>
 <br>
-<hr>
 <br>
-<h2>Email Subscriptions</h2>
+
+<!-- <h2>Email Subscriptions</h2>
 <form method="post" action="/plans/email">
   Subscribe to email alerts for a Github topic:
   Enter your email address: <input type='textfield' name='to'><br>
@@ -33,4 +37,4 @@ Sign up for our mailing list!
 <div class="sendgrid-subscription-widget" data-token="%2FlEKtwWKTM6WCMgr5cUMGFBYABK6SwzH2dUfjO%2FTrOq6jt71N2bCTI2Ti9%2Fa8le41OY8jP8VNhgAzV4D8w%2BsYcIzJUVFsNXOrSCMDn5gfl8%3D">
 
 </div>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'sendgrid-subscription-widget-js');</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://s3.amazonaws.com/subscription-cdn/0.2/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'sendgrid-subscription-widget-js');</script> -->
