@@ -38,3 +38,7 @@
  .card-content h2 {
    margin-bottom: 0;
  }
+
+input[name*= plan][id*= plan] {
+    width: 350px;
+}
