@@ -5,7 +5,8 @@
 <div class = "edit-plan-details">
 
   <% if flash[:error] %>
-    <p class='error'<%= flash[:error] %></p>
+    <p class='error'><%= flash[:error] %></p>
+    <%= flash[:error]="" %>
   <% end %>
 
   <%= form_for(@plan) do |f| %>
