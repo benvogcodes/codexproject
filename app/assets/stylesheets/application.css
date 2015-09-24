@@ -59,6 +59,9 @@ input[name*= user][id*= user] {
 input[name*= session][id*= session] {
   width: 350px;
 }
+#sendgrid-dropdown {
+  width: 120%;
+}
 nav {
   background-color: #2671A6;
 }
