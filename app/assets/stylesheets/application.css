@@ -15,6 +15,11 @@
  *= require_self
  */
 
+ footer {
+  position: relative;
+  text-align: center;
+ }
+
  .home-image {
     border: 0px;
     width: 100%;
@@ -22,12 +27,9 @@
  }
 
  .body {
-  padding: 4%;
+  padding: 4% 10%;
  }
 
- footer {
-   position: relative;
- }
 
  .card-content h2 {
    margin-bottom: 0;

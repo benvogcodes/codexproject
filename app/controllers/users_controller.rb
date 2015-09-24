@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in(@user)
-      redirect_to @user
+      redirect_to '/plans'
     else
       flash[:error] = @user.errors.full_messages
       render 'new'
