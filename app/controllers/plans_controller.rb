@@ -1,5 +1,5 @@
 require 'sendgrid-ruby'
-
+require 'pry'
 class PlansController < ApplicationController
 
   def index
@@ -36,32 +36,34 @@ class PlansController < ApplicationController
   end
 
   def create
-    puts '********************'
-    puts params
-    puts '********************'
 
-    @user = current_user
-
-    name = "#{params['plan']['language']} #{params['plan']['topic']} #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
-    new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
-                               cards_per_serve: 5, serves: 5, name: name,
-                               twilio: false, sendgrid: false,
-                               language: params['plan']['language'], served: 0)
-
-    if params['plan']['topic'].length > 1
-      topic = params['plan']['topic'] + '+'
+    if params['plan']['language'] == '' && params['plan']['topic'] == ''
+      flash[:error] = "Please fill out one of the fields"
+      render 'new'
     else
-      topic = ''
+      @user = current_user
+
+      name = "#{params['plan']['language']} #{params['plan']['topic']} #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
+      new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
+                                 cards_per_serve: 5, serves: 5, name: name,
+                                 twilio: false, sendgrid: false,
+                                 language: params['plan']['language'], served: 0)
+
+      if params['plan']['topic'].length > 1
+        topic = params['plan']['topic'] + '+'
+      else
+        topic = ''
+      end
+
+      create_query(topic)
+      @data = new_plan.create_plan(@data.items, @user)
+
+      @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
+
+      # send_twilio_notification("+12026572604", "+12027190379", @message_body)
+
+      redirect_to action: "show", id: new_plan.id
     end
-
-    create_query(topic)
-    @data = new_plan.create_plan(@data.items, @user)
-
-    @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan \'#{name}\' has been created. Login to check it out!"
-
-    # send_twilio_notification("+12026572604", "+12027190379", @message_body)
-
-    redirect_to action: "show", id: new_plan.id
   end
 
   def show_redirect
@@ -73,6 +75,7 @@ class PlansController < ApplicationController
     @plan = Plan.find_by(id: params[:id])
     @current_cards = []
     @prev_cards = []
+
     servings = @plan.servings
     servings.each do |serving|
       if serving.delivery == @plan.served

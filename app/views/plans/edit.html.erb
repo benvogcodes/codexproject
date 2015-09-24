@@ -1,7 +1,13 @@
-<h1><%= @plan.name %></h1>
+<h2 class="paytone-one">Edit Plan Details</h2>
+
+<br>
 
 <div class = "edit-plan-details">
-  <h3>Edit plan details</h3>
+
+  <% if flash[:error] %>
+    <p class='error'<%= flash[:error] %></p>
+  <% end %>
+
   <%= form_for(@plan) do |f| %>
     <p>
       <%= f.label :name %><br>
@@ -19,16 +25,23 @@
       <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
     </p>
 
+    <br>
+
     <p>
       <%= button_tag( :class => "btn waves-effect waves-light") do %>
         Save Changes <i class="material-icons right"></i>
       <% end %>
     </p>
   <% end %>
+
 <br>
+
   <%= form_tag(plan_path(@plan), :method => :delete) do %>
     <%= button_tag( :class => "btn waves-effect waves-light") do %>
       Delete Plan <i class="material-icons right"></i>
     <% end %>
-  <% end %><br>
+  <% end %>
+
+<br>
+
 </div>
