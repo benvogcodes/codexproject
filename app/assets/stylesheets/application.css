@@ -15,19 +15,23 @@
  *= require_self
  */
 
- footer {
+footer {
   position: relative;
   text-align: center;
- }
+}
 
- html {
+html {
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(224,224,224,1)), color-stop(35%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
   background-repeat: repeat-y;
- }
+}
 
- .body {
+input[name*= plan][id*= plan] {
+  width: 350px;
+}
+
+.body {
   padding: 4% 10%;
- }
+}
 
 .card {
   position: relative;
@@ -42,17 +46,17 @@
   float: left;
 }
 
- .card-content h2 {
-   margin-bottom: 0;
- }
+.card-content h2 {
+ margin-bottom: 0;
+}
 
- .home-image {
-    border: 0px;
-    width: 100%;
-    height: 100%;
- }
+.home-image {
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
 
- #current_cards_box{
-  position: relative;
-  background-color: black;
- }
+#current_cards_box{
+position: relative;
+background-color: black;
+}
