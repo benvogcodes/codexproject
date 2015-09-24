@@ -37,7 +37,7 @@ class PlansController < ApplicationController
     else
       @user = current_user
 
-      name = "#{params['plan']['language']} #{params['plan']['topic']} #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
+      name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
       new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
                                  cards_per_serve: 5, serves: 5, name: name,
                                  twilio: false, sendgrid: false,
@@ -106,11 +106,22 @@ class PlansController < ApplicationController
   end
 
   def demo_advance
-    @plan = Plan.find(params[:id])
+    puts '*************************'
+    puts params
+    puts '*************************'
+    @plan = Plan.find(params['plan_id'])
+    puts '*************************'
+    puts @plan
+    puts @plan.served
+    puts '*************************'
     @plan.served += 1
+    @plan.save
+    puts '*************************'
+    puts @plan.served
+    puts '*************************'
     # send mail
     # send text
-    # redirect to show page
+    redirect_to @plan
   end
 
   private
