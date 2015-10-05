@@ -5,13 +5,14 @@
   <% favicon_link_tag '/codex_favicon' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <nav>
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo">CODEX</a>
+  <div class="nav-wrapper paytone-one">
+    <a href="/" class="brand-logo paytone-one"> &nbsp;&nbsp;&nbsp;CODEX</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><%= link_to "Home", '/' %></li>
       <% if logged_in? %>
@@ -31,7 +32,7 @@
 <br>
 </body>
 
-<footer>
+<footer class="paytone-one">
 <p>
   Made with <i class="fa fa-hand-spock-o"></i> in SF
 </p>

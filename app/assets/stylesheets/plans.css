@@ -1,3 +1,6 @@
+#cards_divider {
+  clear: both;
+}
 
 #prev_cards_box {
   display: none;
@@ -5,8 +8,14 @@
 
 #prev_cards_hide_button {
   display: none;
+  margin: 0 auto;
+
 }
 
+#prev_cards_show_button {
+  margin: 0 auto;
+  display: block;
+}
 #sendgrid_form {
   display: none;
 }
@@ -17,8 +26,26 @@
 
 #spinny_div {
   display: none;
+  text-align: center;
 }
 
 #spinny_div i {
   margin: 0 auto;
+}
+
+.preloader-wrapper {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#demo_box {
+  text-align: center;
+}
+
+#demo_box button {
+  background-color: #ff3d00;
+}
+
+#demo_box button:hover {
+  background-color: #ff6e40;
 }
