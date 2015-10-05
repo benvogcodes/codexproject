@@ -1,7 +1,14 @@
-<h1><%= @plan.name %></h1>
+<h2 class="paytone-one">Edit Plan Details</h2>
+
+<br>
 
 <div class = "edit-plan-details">
-  <h3>Edit plan details</h3>
+
+  <% if flash[:error] %>
+    <p class='error'><%= flash[:error] %></p>
+    <%= flash[:error]="" %>
+  <% end %>
+
   <%= form_for(@plan) do |f| %>
     <p>
       <%= f.label :name %><br>
@@ -15,9 +22,35 @@
 
     <p>
       <%= f.label "Notify me by:" %><br>
-      <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %><br>
-      <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %><br>
+      <div id="twilio_checkbox" class="switch">
+          <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
+      </div>
+      <div  class="switch">
+          <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
+      </div>
     </p>
+
+    <br>
+
+    <div id="twilio_form">
+      <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :phone_number %>
+          <%= f.label :phone_number, 'Your Phone Number:' %>
+        </div>
+      </div>
+    </div>
+
+    <div id="sendgrid_form">
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :email %>
+          <%= f.label :email, 'Your Email:' %>
+        </div>
+      </div>
+    </div>
+
+    <br>
 
     <p>
       <%= button_tag( :class => "btn waves-effect waves-light") do %>
@@ -25,10 +58,15 @@
       <% end %>
     </p>
   <% end %>
-<br>
+
+  <br>
+
   <%= form_tag(plan_path(@plan), :method => :delete) do %>
     <%= button_tag( :class => "btn waves-effect waves-light") do %>
       Delete Plan <i class="material-icons right"></i>
     <% end %>
-  <% end %><br>
+  <% end %>
+
+  <br>
+
 </div>

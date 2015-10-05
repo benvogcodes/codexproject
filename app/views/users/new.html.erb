@@ -1,9 +1,11 @@
-<h1>Sign up for a new Account</h1>
+<h2 class="paytone-one">Sign Up</h2>
+
 <%= form_for :user, url: users_path do |f| %>
 
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
-      <p style="color: red"><%= error %></p>
+      <p class='error'><%= error %></p>
+      <%= error="" %>
     <% end %>
   <% end %>
 
