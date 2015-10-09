@@ -6,7 +6,6 @@ CODEX is a self-study tool that encourages you to read more code. The platform e
 Enter a topic and language, and let Codex know how (and if) you want to receive notifications.
 
 ![Create Plan](/imgs/create_plan.png)
-
 ![Plans Index](/imgs/plans_index.png)
 
 Every week, Codex will send you new repositories to examine. Repositories are selected based on their popularity, number of contributors, and frequency of activity.
