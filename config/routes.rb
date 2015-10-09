@@ -6,15 +6,17 @@ Rails.application.routes.draw do
   # get 'repos/show'
   #
   # get 'repos/edit'
-  post 'plans/createplan' => 'plans#createplan'
-  get 'plans/testnew' => 'plans#testnew'
-  post 'plans/testcreate' => 'plans#testcreate'
+  post 'plans/createplan'  => 'plans#createplan'
+  get  'plans/testnew'     => 'plans#testnew'
+  post 'plans/testcreate'  => 'plans#testcreate'
 
-  post 'plans/createplan' => 'plans#createplan'
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
-  post 'plans/email' => 'plans#email'
+  post 'plans/createplan'  => 'plans#createplan'
+  get  'login'             => 'sessions#new'
+  post 'login'             => 'sessions#create'
+  get  'logout'            => 'sessions#destroy'
+  post 'plans/email'       => 'plans#email'
+
+  post 'plans/demo'             => 'plans#demo_advance'
 
   resources :users
   resource  :session

@@ -3,8 +3,6 @@
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
-
-
 .materialize-red.lighten-5 {
   background-color: #fdeaeb !important; }
 
@@ -2179,10 +2177,7 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #ee6e73;
-  position: absolute;
-  width: 100%;
-  bottom: 0px;}
+  background-color: #ee6e73; }
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
@@ -5627,7 +5622,7 @@ small {
     border-top: 1px solid rgba(160, 160, 160, 0.2);
     padding: 20px; }
     .card .card-action a {
-      color: #ffab40;
+      /*color: #ffab40;*/
       margin-right: 20px;
       -webkit-transition: color .3s ease;
       -moz-transition: color .3s ease;
@@ -5636,7 +5631,7 @@ small {
       transition: color .3s ease;
       text-transform: uppercase; }
       .card .card-action a:hover {
-        color: #ffd8a6; }
+      /*color: #ffd8a6;*/ }
   .card .card-reveal {
     padding: 20px;
     position: absolute;

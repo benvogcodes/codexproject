@@ -8,48 +8,93 @@
 <!--
 </form> -->
 
-<h1>Create a New Study Plan</h1>
+<h2 class="paytone-one">Create Plan</h2>
+
+<br>
+
 <div id="new_study_plan_form">
+
+  <% if flash[:error] %>
+    <p class='error'><%= flash[:error] %></p>
+    <%= flash[:error]="" %>
+  <% end %>
+
   <%= form_for :plan, url: plans_path, html: {id: "new_study_plan"} do |f| %>
     <p>
       <%= f.label :topic %><br>
       <%= f.text_field :topic %>
     </p>
-
     <p>
       <%= f.label :language %><br>
       <%= f.text_field :language %>
     </p>
-
     <p>
       <%= f.label "Notify me by:" %><br>
       <div id="twilio_checkbox" class="switch">
           <%= f.check_box :twilio, {}, "t", "f" %><%= f.label :twilio, "SMS Message" %>
       </div>
-
       <div  class="switch">
           <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
       </div>
     </p>
-
-    <p>
+    <br>
+    <div id="twilio_form">
+      <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :phone_number %>
+          <%= f.label :phone_number, 'Your Phone Number:' %>
+        </div>
+      </div>
+      <!-- <div class="row" id="twilio-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :message_body %>
+          <%= f.label :message_body, 'Your Message:' %>
+        </div>
+      </div> -->
+    </div>
+    <div id="sendgrid_form">
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :email %>
+          <%= f.label :email, 'Your Email:' %>
+        </div>
+      </div>
+      <!-- <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :subject %>
+          <%= f.label :subject, 'Email Subject:' %>
+        </div>
+      </div>
+      <div class="row" id="sendgrid-dropdown">
+        <div class="input-field col s12">
+          <%= f.text_field :body %>
+          <%= f.label :body, 'Email Body:' %>
+        </div>
+      </div> -->
+  </div>
+    <p align="center">
       <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
         Create <i class="material-icons right"></i>
       <% end %>
     </p>
   <% end %>
-
-  <div id="twilio_form">
-    I'm a twilio form!
-  </div>
-
-  <div id="sendgrid_form">
-    <%= render "sendgrid_form" %>
-  </div>
 </div>
+
+
+
+
 <div id="spinny_div">
-  <i class="fa fa-spinner fa-spin fa-5x"></i>
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
 </div>
-
 
 <script type="text/javascript" src="js/plans.js"></script>
