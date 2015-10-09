@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921234705) do
+ActiveRecord::Schema.define(version: 20151006231649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150921234705) do
     t.integer  "served"
     t.boolean  "twilio"
     t.boolean  "sendgrid"
+    t.integer  "phone_number"
+    t.string   "email"
   end
 
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree

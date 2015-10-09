@@ -1,9 +1,11 @@
 <div>
-  <h1>Login</h1>
+
+  <h2 class="paytone-one">Login</h2>
 
   <% if flash[:error] %>
     <% flash[:error].each do |error| %>
-      <p style="color: red"><%= error %></p>
+      <p class='error'><%= error %></p>
+      <%= error="" %>
     <% end %>
   <% end %>
 
@@ -24,5 +26,7 @@
         Log In <i class="material-icons right"></i>
       <% end %>
     </p>
+
   <% end %>
+
 </div>
