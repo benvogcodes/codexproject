@@ -9,6 +9,6 @@ Enter a topic and language, and let Codex know how (and if) you want to receive 
 
 ![Plans Index](/imgs/plans_index.png)
 
-Every week, Codex will send you new repositories so examine. Repositories are selected based on their popularity, number of contributors, and frequency of activity.
+Every week, Codex will send you new repositories to examine. Repositories are selected based on their popularity, number of contributors, and frequency of activity.
 
 ![Plan Cards Index](/imgs/plan_cards_index.png)
