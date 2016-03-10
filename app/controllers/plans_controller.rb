@@ -1,14 +1,13 @@
 require 'sendgrid-ruby'
 require 'pry'
-class PlansController < ApplicationController
 
+class PlansController < ApplicationController
   def index
     @user = current_user
     @plans = @user.plans
   end
 
   def new
-
   end
 
   def create
@@ -59,7 +58,6 @@ class PlansController < ApplicationController
     @plan = Plan.find_by(id: params[:id])
     @current_cards = []
     @prev_cards = []
-
     servings = @plan.servings
     servings.each do |serving|
       if serving.delivery == @plan.served
@@ -88,34 +86,22 @@ class PlansController < ApplicationController
   end
 
   def demo_advance
-    puts '*************************'
-    puts params
-    puts '*************************'
     @plan = Plan.find(params['plan_id'])
-    puts '*************************'
-    puts @plan
-    puts @plan.served
-    puts '*************************'
     @plan.served += 1
     @plan.save
-    puts '*************************'
-    puts @plan.served
-    puts '*************************'
-    # send mail
-    # send text
     redirect_to @plan
   end
 
   private
-    def create_query(topic)
-      q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-      authenticate_github
-      Octokit.auto_paginate = false
-      @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
-    end
 
-    def plan_params
-      params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
-    end
+  def create_query(topic)
+    q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
+    authenticate_github
+    Octokit.auto_paginate = false
+    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
+  end
 
+  def plan_params
+    params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
+  end
 end

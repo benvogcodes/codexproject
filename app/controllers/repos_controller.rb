@@ -19,5 +19,4 @@ class ReposController < ApplicationController
 
   def destroy
   end
-
 end

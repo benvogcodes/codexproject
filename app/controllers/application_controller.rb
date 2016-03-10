@@ -29,18 +29,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_github
     client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
-    #commented out b/c I don't want to enter credentials
-    # user = client.user
-    # user.login
   end
 
   def send_twilio_notification(recipient, sender, message_body)
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_TOKEN']
-
-    # set up a client to talk to the Twilio REST API
     @client = Twilio::REST::Client.new account_sid, auth_token
-
     @client.account.messages.create({
       :to => recipient,
       :from => sender,
