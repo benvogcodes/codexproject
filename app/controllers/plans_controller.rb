@@ -18,11 +18,18 @@ class PlansController < ApplicationController
       @user = current_user
 
       name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
+
       new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
-                                 cards_per_serve: 5, serves: 5, name: name,
-                                 twilio: false, sendgrid: false,
-                                 language: params['plan']['language'], served: 0,
-                                 phone_number: 0)
+                                 cards_per_serve: 5,
+                                 serves: 5,
+                                 name: name,
+                                 twilio: false,
+                                 sendgrid: false,
+                                 language: params['plan']['language'],
+                                 served: 0,
+                                 phone_number: 0
+                                 )
+
         if params['plan']['topic'].length > 1
           topic = params['plan']['topic'] + '+'
         else
@@ -30,21 +37,25 @@ class PlansController < ApplicationController
         end
 
       create_query(topic)
+
       @data = new_plan.create_plan(@data.items, @user)
 
       @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan} has been created. Login to check it out!"
       @phone_number = params['plan'][:phone_number].gsub!(/[- ()]/, '')
+
       send_twilio_notification(@phone_number, "+12027190379", @message_body) if params['plan']['twilio'] == 't'
+
       if params['plan']['sendgrid'] == 't'
         client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
         mail = SendGrid::Mail.new do |m|
-        m.to = params['plan'][:email]
-        m.from = 'teamcodex11@gmail.com'
-        m.subject = "Your New Plan is Ready"
-        m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan.name} has been created. Login to check it out!"
+          m.to = params['plan'][:email]
+          m.from = 'teamcodex11@gmail.com'
+          m.subject = "Your New Plan is Ready"
+          m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan.name} has been created. Login to check it out!"
         end
         puts client.send(mail)
       end
+
       redirect_to action: "show", id: new_plan.id
     end
   end
@@ -56,18 +67,8 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find_by(id: params[:id])
-    @current_cards = []
-    @prev_cards = []
-    servings = @plan.servings
-    servings.each do |serving|
-      if serving.delivery == @plan.served
-        card = Repo.find(serving.repo_id)
-        @current_cards << card
-      elsif serving.delivery < @plan.served
-        card = Repo.find(serving.repo_id)
-        @prev_cards << card
-      end
-    end
+    @current_cards = @plan.current_cards
+    @prev_cards = @plan.prev_cards
   end
 
   def edit
