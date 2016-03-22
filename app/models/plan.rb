@@ -32,7 +32,7 @@ class Plan < ActiveRecord::Base
             'full_name' => item.full_name,
             'url' => item.url,
             'html_url' => item.html_url,
-            'description' => item.description,
+            'description' => trim_description(item.description),
             'created' => item.created_at,
             'updated' => item.updated_at,
             'pushed' => item.pushed_at,
@@ -43,11 +43,6 @@ class Plan < ActiveRecord::Base
             'score' => item.score,
             'user' => item.owner.login
           }
-
-          # Truncate repo description if longer than 255 chars.
-          if new_card['description'].length > 255
-            new_card['description'] = new_card['description'].slice(0, 255) + '...'
-          end
 
           # Create a new repo object tied to this plan based on the input hash created above.
           new_card = build_card(new_card, self)
@@ -60,7 +55,7 @@ class Plan < ActiveRecord::Base
       build_servings(result, self, j)
     end
 
-    result
+    result.sort! { |a,b| a.stars <=> b.stars }
   end
 
 # Creates a new repo object tied to a particular plan.
@@ -85,31 +80,31 @@ class Plan < ActiveRecord::Base
   end
 
 # Creates new repo objects tied to a particular plan.
-  def build_cards(items, plan)
-    result = []
-
-    items.each do |item|
-      card = plan.repos.new(
-        served: false,
-        size: item.size,
-        desc: item['description'],
-        url: item['html_url'],
-        name: item['name'],
-        user: item['user'],
-        created: item['created'],
-        updated: item['updated'],
-        pushed: item['pushed'],
-        watchers: item['watchers']
-      )
-
-      card.stars = item['stars'] || 0
-      card.forks = item['forks'] || 0
-
-      result << card if card.save
-    end
-
-    result.sort! { |a,b| a.stars <=> b.stars }
-  end
+  # def build_cards(items, plan)
+  #   result = []
+  #
+  #   items.each do |item|
+  #     card = plan.repos.new(
+  #       served: false,
+  #       size: item.size,
+  #       desc: item['description'],
+  #       url: item['html_url'],
+  #       name: item['name'],
+  #       user: item['user'],
+  #       created: item['created'],
+  #       updated: item['updated'],
+  #       pushed: item['pushed'],
+  #       watchers: item['watchers']
+  #     )
+  #
+  #     card.stars = item['stars'] || 0
+  #     card.forks = item['forks'] || 0
+  #
+  #     result << card if card.save
+  #   end
+  #
+  #   result.sort! { |a,b| a.stars <=> b.stars }
+  # end
 
 # Creates serving objects tied to a particular plan.
   def build_servings(repositories, plan, num)
@@ -137,5 +132,13 @@ class Plan < ActiveRecord::Base
       cards << Repo.find(serving.repo_id) if serving.delivery < self.served
     end
     cards
+  end
+
+  private
+
+  # Truncate repo description if longer than 255 chars.
+  def trim_description(description)
+    description = description.slice(0, 255) + '...' unless description.length <= 255
+    description
   end
 end
