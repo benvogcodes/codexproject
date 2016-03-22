@@ -7,10 +7,10 @@ class Plan < ActiveRecord::Base
 
   def create_plan(data, user)
     items = self.clean_data(data)
-    result = self.build_cards(items, self)
+    # result = self.build_cards(items, self) #Is this redundant given line 53?
   end
 
-
+# Parses the important information from the response object from the Github API call.
   def clean_data(data)
     result = []
     items = data || []
@@ -44,23 +44,26 @@ class Plan < ActiveRecord::Base
             'user' => item.owner.login
           }
 
+          # Truncate repo description if longer than 255 chars.
           if new_card['description'].length > 255
             new_card['description'] = new_card['description'].slice(0, 255) + '...'
           end
 
+          # Create a new repo object tied to this plan based on the input hash created above.
           new_card = build_card(new_card, self)
         end
 
         result << new_card if new_card
       end
 
+      # Creates serving objects tied to this plan, containing the repo objects created above.
       build_servings(result, self, j)
     end
 
     result
   end
 
-
+# Creates a new repo object tied to a particular plan.
   def build_card(item, plan)
     card = plan.repos.new(
       served: false,
@@ -74,7 +77,6 @@ class Plan < ActiveRecord::Base
       pushed: item['pushed'],
       watchers: item['watchers']
     )
-
     card.stars = item['stars'] || 0
     card.forks = item['forks'] || 0
 
@@ -82,7 +84,7 @@ class Plan < ActiveRecord::Base
     card
   end
 
-
+# Creates new repo objects tied to a particular plan.
   def build_cards(items, plan)
     result = []
 
@@ -109,7 +111,7 @@ class Plan < ActiveRecord::Base
     result.sort! { |a,b| a.stars <=> b.stars }
   end
 
-
+# Creates serving objects tied to a particular plan.
   def build_servings(repositories, plan, num)
     result = []
 

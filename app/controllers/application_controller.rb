@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
     client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
   end
 
-  def send_twilio_notification(recipient, sender, message_body)
-    account_sid = ENV['TWILIO_SID']
-    auth_token = ENV['TWILIO_TOKEN']
-    @client = Twilio::REST::Client.new account_sid, auth_token
+  def send_twilio_notification(recipient, plan_name)
+    @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
+    message_body = "Greetings from Team Codex, #{@user.username}! Your new plan #{plan_name} has been created. Login to check it out!"
+    recipient = recipient.gsub!(/[- ()]/, '')
     @client.account.messages.create({
       :to => recipient,
-      :from => sender,
+      :from => "+12027190379",
       :body => message_body
     })
   end

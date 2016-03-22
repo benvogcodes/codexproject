@@ -15,47 +15,44 @@ class PlansController < ApplicationController
       flash[:error] = "Please fill out one of the fields"
       render 'new'
     else
+      # Specify user.
       @user = current_user
 
+      # Create plan name based on inputs and current date.
       name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
 
-      new_plan = @user.plans.create(frequency: 1, topic: params['plan']['topic'],
-                                 cards_per_serve: 5,
-                                 serves: 5,
-                                 name: name,
-                                 twilio: false,
-                                 sendgrid: false,
-                                 language: params['plan']['language'],
-                                 served: 0,
-                                 phone_number: 0
-                                 )
+      # Create new plan for specified user.
+      new_plan = @user.plans.create(
+        frequency: 1,
+        topic: params['plan']['topic'],
+        cards_per_serve: 5,
+        serves: 5,
+        name: name,
+        twilio: false,
+        sendgrid: false,
+        language: params['plan']['language'],
+        served: 0,
+        phone_number: 0
+        )
 
-        if params['plan']['topic'].length > 1
-          topic = params['plan']['topic'] + '+'
-        else
-          topic = ''
-        end
-
-      create_query(topic)
-
-      @data = new_plan.create_plan(@data.items, @user)
-
-      @message_body = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan} has been created. Login to check it out!"
-      @phone_number = params['plan'][:phone_number].gsub!(/[- ()]/, '')
-
-      send_twilio_notification(@phone_number, "+12027190379", @message_body) if params['plan']['twilio'] == 't'
-
-      if params['plan']['sendgrid'] == 't'
-        client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
-        mail = SendGrid::Mail.new do |m|
-          m.to = params['plan'][:email]
-          m.from = 'teamcodex11@gmail.com'
-          m.subject = "Your New Plan is Ready"
-          m.text = "Greetings from Team Codex, #{@user.username}! Your new plan #{new_plan.name} has been created. Login to check it out!"
-        end
-        puts client.send(mail)
+      # Normalize query parameters for Github query.
+      if params['plan']['topic'].length > 1
+        topic = params['plan']['topic'] + '+'
+      else
+        topic = ''
       end
 
+      # Fire off call to Github API, returns repo @data for create_plan.
+      create_query(topic)
+
+      # Creates repo objects tied to the plan based on the data returned from the Github call.
+      @data = new_plan.create_plan(@data.items, @user)
+
+      # Send notifications based on option flags.
+      send_twilio_notification(params['plan'][:phone], new_plan) if params['plan']['twilio'] == 't'
+      send_email(@user, new_plan) if params['plan']['sendgrid'] == 't'
+
+      # Redirect user to plan_path.
       redirect_to action: "show", id: new_plan.id
     end
   end
@@ -94,6 +91,17 @@ class PlansController < ApplicationController
   end
 
   private
+
+  def send_email(user, plan)
+    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
+    mail = SendGrid::Mail.new do |m|
+      m.to = params['plan'][:email]
+      m.from = 'teamcodex11@gmail.com'
+      m.subject = "Your New Plan is Ready"
+      m.text = "Greetings from Team Codex, #{user.username}! Your new plan #{plan.name} has been created. Login to check it out!"
+    end
+    client.send(mail)
+  end
 
   def create_query(topic)
     q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
