@@ -71,7 +71,7 @@ class Plan < ActiveRecord::Base
 
     result
   end
-  
+
   # Need to extract another method from this, dual responsibility.
   def make_cards_and_repos(result, items, number_of_cards, number_of_deliveries)
     number_of_deliveries.times do |j|
