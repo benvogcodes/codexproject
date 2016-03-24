@@ -36,12 +36,12 @@ class PlansController < ApplicationController
         )
 
       # Normalize query parameters for Github query.
-      if params['plan']['topic'].length > 1
-        topic = params['plan']['topic'] + '+'
-      else
-        topic = ''
-      end
-
+      # if params['plan']['topic'].length > 1
+      #   topic = params['plan']['topic'] + '+'
+      # else
+      #   topic = ''
+      # end
+      topic = normalize_topic(params)
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
 
@@ -112,6 +112,14 @@ class PlansController < ApplicationController
 
   def generate_name(params)
     "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
+  end
+
+  def normalize_topic(params)
+    if params['plan']['topic'].length > 1
+      topic = params['plan']['topic'] + '+'
+    else
+      topic = ''
+    end
   end
 
   def plan_params
