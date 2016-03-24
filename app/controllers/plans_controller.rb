@@ -1,5 +1,4 @@
 require 'sendgrid-ruby'
-require 'pry'
 
 class PlansController < ApplicationController
   def index
@@ -18,10 +17,8 @@ class PlansController < ApplicationController
       # Specify user.
       @user = current_user
 
-      # Create plan name based on inputs and current date.
-      # name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
-
       # Create new plan for specified user.
+      # This should probably have everything except for topic, name, and language attributes set to default values within the model.
       new_plan = @user.plans.create(
         frequency: 1,
         topic: params['plan']['topic'],
@@ -36,15 +33,9 @@ class PlansController < ApplicationController
         )
 
       # Normalize query parameters for Github query.
-      # if params['plan']['topic'].length > 1
-      #   topic = params['plan']['topic'] + '+'
-      # else
-      #   topic = ''
-      # end
       topic = normalize_topic(params)
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
-
       # Creates repo objects tied to the plan based on the data returned from the Github call.
       @data = new_plan.create_plan(@data.items, @user)
 
