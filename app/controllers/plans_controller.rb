@@ -16,33 +16,21 @@ class PlansController < ApplicationController
     else
       # Specify user.
       @user = current_user
-
       # Create new plan for specified user.
-      # This should probably have everything except for topic, name, and language attributes set to default values within the model.
       new_plan = @user.plans.create(
-        frequency: 1,
-        topic: params['plan']['topic'],
-        cards_per_serve: 5,
-        serves: 5,
-        name: generate_name(params),
-        twilio: false,
-        sendgrid: false,
-        language: params['plan']['language'],
-        served: 0,
-        phone_number: 0
+          topic: params['plan']['topic'],
+          name: generate_name(params),
+          language: params['plan']['language'],
         )
-
       # Normalize query parameters for Github query.
       topic = normalize_topic(params)
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
       # Creates repo objects tied to the plan based on the data returned from the Github call.
       @data = new_plan.create_plan(@data.items, @user)
-
       # Send notifications based on option flags.
       send_twilio_notification(params['plan'][:phone], new_plan) if params['plan']['twilio'] == 't'
       send_email(@user, new_plan) if params['plan']['sendgrid'] == 't'
-
       # Redirect user to plan_path.
       redirect_to action: "show", id: new_plan.id
     end

@@ -11,25 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006231649) do
+ActiveRecord::Schema.define(version: 20160324214309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "plans", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "frequency"
+    t.string   "frequency",       default: "1"
     t.string   "topic"
     t.string   "language"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "cards_per_serve"
-    t.integer  "serves"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "cards_per_serve", default: 5
+    t.integer  "serves",          default: 5
     t.string   "name"
-    t.integer  "served"
-    t.boolean  "twilio"
-    t.boolean  "sendgrid"
-    t.integer  "phone_number"
+    t.integer  "served",          default: 0
+    t.boolean  "twilio",          default: false
+    t.boolean  "sendgrid",        default: false
+    t.integer  "phone_number",    default: 0
     t.string   "email"
   end
 
