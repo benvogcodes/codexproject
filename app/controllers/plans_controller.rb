@@ -19,7 +19,7 @@ class PlansController < ApplicationController
       @user = current_user
 
       # Create plan name based on inputs and current date.
-      name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
+      # name = "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
 
       # Create new plan for specified user.
       new_plan = @user.plans.create(
@@ -27,7 +27,7 @@ class PlansController < ApplicationController
         topic: params['plan']['topic'],
         cards_per_serve: 5,
         serves: 5,
-        name: name,
+        name: generate_name(params),
         twilio: false,
         sendgrid: false,
         language: params['plan']['language'],
@@ -108,6 +108,10 @@ class PlansController < ApplicationController
     authenticate_github
     Octokit.auto_paginate = false
     @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
+  end
+
+  def generate_name(params)
+    "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
   end
 
   def plan_params
