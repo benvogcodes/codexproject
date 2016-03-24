@@ -1,13 +1,3 @@
-<!-- <form id="github-search" method="get" action="plans">
-  Enter your topic: <input name="topic" type="text"><br>
-  Enter your language: <input name="language" type="text"><br>
-  <input value="submit this" type="submit">
-
-  <div id="github-search-stuff">
-  </div> -->
-<!--
-</form> -->
-
 <h2 class="paytone-one">Create Plan</h2>
 
 <br>
@@ -24,10 +14,12 @@
       <%= f.label :topic %><br>
       <%= f.text_field :topic %>
     </p>
+
     <p>
       <%= f.label :language %><br>
       <%= f.text_field :language %>
     </p>
+
     <p>
       <%= f.label "Notify me by:" %><br>
       <div id="twilio_checkbox" class="switch">
@@ -37,7 +29,9 @@
           <%= f.check_box :sendgrid, {}, "t", "f" %><%= f.label :sendgrid, "E-mail" %>
       </div>
     </p>
+
     <br>
+
     <div id="twilio_form">
       <div class="row" id="twilio-dropdown">
         <div class="input-field col s12">
@@ -45,13 +39,8 @@
           <%= f.label :phone_number, 'Your Phone Number:' %>
         </div>
       </div>
-      <!-- <div class="row" id="twilio-dropdown">
-        <div class="input-field col s12">
-          <%= f.text_field :message_body %>
-          <%= f.label :message_body, 'Your Message:' %>
-        </div>
-      </div> -->
     </div>
+
     <div id="sendgrid_form">
       <div class="row" id="sendgrid-dropdown">
         <div class="input-field col s12">
@@ -59,29 +48,16 @@
           <%= f.label :email, 'Your Email:' %>
         </div>
       </div>
-      <!-- <div class="row" id="sendgrid-dropdown">
-        <div class="input-field col s12">
-          <%= f.text_field :subject %>
-          <%= f.label :subject, 'Email Subject:' %>
-        </div>
-      </div>
-      <div class="row" id="sendgrid-dropdown">
-        <div class="input-field col s12">
-          <%= f.text_field :body %>
-          <%= f.label :body, 'Email Body:' %>
-        </div>
-      </div> -->
-  </div>
+    </div>
+
     <p align="center">
       <%= button_tag( :class => "btn waves-effect waves-light", :id => "new_plan_button") do %>
         Create <i class="material-icons right"></i>
       <% end %>
     </p>
+
   <% end %>
 </div>
-
-
-
 
 <div id="spinny_div">
   <div class="preloader-wrapper big active">

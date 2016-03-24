@@ -9,11 +9,6 @@
   <%= form_tag('/plans/demo') do -%>
     <%= hidden_field_tag('plan_id', value = @plan.id) %>
     <%= button_tag "Demo", class: "btn waves-effect waves-light" %>
-
-  <!-- <form id="demo_form" action="/plans/demo" method="post">
-    <input type="hidden" name="plan_id" value="<%= @plan.id %>" />
-    <input type="submit" id="demo_button" class="btn waves-effect waves-light" value="Demo" />
-  </form> -->
   <% end -%>
 </div>
 <br>
