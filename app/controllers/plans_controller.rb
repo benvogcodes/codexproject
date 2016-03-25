@@ -12,16 +12,12 @@ class PlansController < ApplicationController
       flash[:error] = "Please fill out one of the fields"
       render 'new'
     else
-      # Specify user.
       @user = current_user
-      # Create new plan for specified user.
       new_plan = @user.plans.create(
-          topic: params['plan']['topic'],
+          topic: normalize_topic(params),
           name: generate_name(params),
           language: params['plan']['language'],
-        )
-      # Normalize query parameters for Github query.
-      topic = normalize_topic(params)
+      )
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
       # Creates repo objects tied to the plan based on the data returned from the Github call.
@@ -29,15 +25,14 @@ class PlansController < ApplicationController
       # Send notifications based on option flags.
       send_twilio_notification(params['plan'][:phone], new_plan) if params['plan']['twilio'] == 't'
       send_email(@user, new_plan) if params['plan']['sendgrid'] == 't'
-      # Redirect user to plan_path.
       redirect_to action: "show", id: new_plan.id
     end
   end
 
-  def show_redirect
-    @plan = @user.plans.last
-    redirect_to action: "show", id: @plan.id
-  end
+  # def show_redirect
+  #   @plan = @user.plans.last
+  #   redirect_to action: "show", id: @plan.id
+  # end
 
   def show
     @plan = Plan.find_by(id: params[:id])
