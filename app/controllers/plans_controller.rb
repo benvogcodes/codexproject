@@ -13,10 +13,11 @@ class PlansController < ApplicationController
       render 'new'
     else
       @user = current_user
+      topic = normalize_topic(params)
       new_plan = @user.plans.create(
-          topic: normalize_topic(params),
+          topic: topic,
           name: generate_name(params),
-          language: params['plan']['language'],
+          language: params['plan']['language']
       )
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
@@ -28,11 +29,6 @@ class PlansController < ApplicationController
       redirect_to action: "show", id: new_plan.id
     end
   end
-
-  # def show_redirect
-  #   @plan = @user.plans.last
-  #   redirect_to action: "show", id: @plan.id
-  # end
 
   def show
     @plan = Plan.find_by(id: params[:id])
