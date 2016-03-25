@@ -1,5 +1,3 @@
-require 'sendgrid-ruby'
-
 class PlansController < ApplicationController
   def index
     @user = current_user
@@ -70,36 +68,6 @@ class PlansController < ApplicationController
   end
 
   private
-
-  def send_email(user, plan)
-    client = SendGrid::Client.new(api_user: ENV['SENDGRID_USERNAME'], api_key: ENV['SENDGRID_PASSWORD'])
-    mail = SendGrid::Mail.new do |m|
-      m.to = params['plan'][:email]
-      m.from = 'teamcodex11@gmail.com'
-      m.subject = "Your New Plan is Ready"
-      m.text = "Greetings from Team Codex, #{user.username}! Your new plan #{plan.name} has been created. Login to check it out!"
-    end
-    client.send(mail)
-  end
-
-  def create_query(topic)
-    q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
-    authenticate_github
-    Octokit.auto_paginate = false
-    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
-  end
-
-  def generate_name(params)
-    "#{(params['plan']['language']).capitalize} #{(params['plan']['topic']).capitalize} -  #{Time.now.month}/#{Time.now.day}/#{Time.now.year}"
-  end
-
-  def normalize_topic(params)
-    if params['plan']['topic'].length > 1
-      topic = params['plan']['topic'] + '+'
-    else
-      topic = ''
-    end
-  end
 
   def plan_params
     params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
