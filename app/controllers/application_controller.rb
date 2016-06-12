@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_github
-    client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
+    Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
   end
 
   def send_twilio_notification(recipient, plan_name)
@@ -61,10 +61,10 @@ class ApplicationController < ActionController::Base
   end
 
   def normalize_topic(params)
-    topic = if params['plan']['topic'].length > 1
-              params['plan']['topic'] + '+'
-            else
-              ''
-            end
+    if params['plan']['topic'].length > 1
+      params['plan']['topic'] + '+'
+    else
+      ''
+    end
   end
 end

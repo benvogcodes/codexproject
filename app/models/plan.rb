@@ -6,7 +6,7 @@ class Plan < ActiveRecord::Base
   validates :frequency, presence: true
 
   def create_plan(data, _user)
-    items = clean_data(data)
+    clean_data(data)
   end
 
   # Parses the important information from the response object from the Github API call.
