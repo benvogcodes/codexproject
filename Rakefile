@@ -7,6 +7,6 @@ Rails.application.load_tasks
 
 require 'dotenv/tasks'
 
-task :mytask => :dotenv do
-    # things that require .env
+task mytask: :dotenv do
+  # things that require .env
 end

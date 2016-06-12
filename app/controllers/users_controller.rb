@@ -29,13 +29,13 @@ class UsersController < ApplicationController
       redirect_to plans_path
     else
       flash[:error] = @user.errors.full_messages
-      render 'edit', :locals => {:id => @user.id}
+      render 'edit', locals: { id: @user.id }
     end
   end
 
   def destroy
     @user = User.find(params[:id])
-    log_out()
+    log_out
     @user.destroy
     redirect_to root_path
   end
