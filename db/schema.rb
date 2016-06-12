@@ -11,70 +11,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324214309) do
-
+ActiveRecord::Schema.define(version: 20_160_324_214_309) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "plans", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "frequency",       default: "1"
-    t.string   "topic"
-    t.string   "language"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "cards_per_serve", default: 5
-    t.integer  "serves",          default: 5
-    t.string   "name"
-    t.integer  "served",          default: 0
-    t.boolean  "twilio",          default: false
-    t.boolean  "sendgrid",        default: false
-    t.integer  "phone_number",    default: 0
-    t.string   "email"
+  create_table 'plans', force: :cascade do |t|
+    t.integer  'user_id'
+    t.string   'frequency', default: '1'
+    t.string   'topic'
+    t.string   'language'
+    t.datetime 'created_at',                      null: false
+    t.datetime 'updated_at',                      null: false
+    t.integer  'cards_per_serve', default: 5
+    t.integer  'serves',          default: 5
+    t.string   'name'
+    t.integer  'served',          default: 0
+    t.boolean  'twilio',          default: false
+    t.boolean  'sendgrid',        default: false
+    t.integer  'phone_number',    default: 0
+    t.string   'email'
   end
 
-  add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
+  add_index 'plans', ['user_id'], name: 'index_plans_on_user_id', using: :btree
 
-  create_table "repos", force: :cascade do |t|
-    t.integer  "plan_id"
-    t.boolean  "served"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "url"
-    t.integer  "stars"
-    t.integer  "forks"
-    t.integer  "size"
-    t.text     "desc"
-    t.string   "name"
-    t.string   "user"
-    t.datetime "created"
-    t.datetime "updated"
-    t.datetime "pushed"
-    t.string   "watchers"
+  create_table 'repos', force: :cascade do |t|
+    t.integer  'plan_id'
+    t.boolean  'served'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string   'url'
+    t.integer  'stars'
+    t.integer  'forks'
+    t.integer  'size'
+    t.text     'desc'
+    t.string   'name'
+    t.string   'user'
+    t.datetime 'created'
+    t.datetime 'updated'
+    t.datetime 'pushed'
+    t.string   'watchers'
   end
 
-  add_index "repos", ["plan_id"], name: "index_repos_on_plan_id", using: :btree
+  add_index 'repos', ['plan_id'], name: 'index_repos_on_plan_id', using: :btree
 
-  create_table "servings", force: :cascade do |t|
-    t.integer "plan_id"
-    t.integer "repo_id"
-    t.integer "delivery"
+  create_table 'servings', force: :cascade do |t|
+    t.integer 'plan_id'
+    t.integer 'repo_id'
+    t.integer 'delivery'
   end
 
-  add_index "servings", ["plan_id"], name: "index_servings_on_plan_id", using: :btree
-  add_index "servings", ["repo_id"], name: "index_servings_on_repo_id", using: :btree
+  add_index 'servings', ['plan_id'], name: 'index_servings_on_plan_id', using: :btree
+  add_index 'servings', ['repo_id'], name: 'index_servings_on_repo_id', using: :btree
 
-  create_table "users", force: :cascade do |t|
-    t.string   "username"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "email"
-    t.string   "phone"
+  create_table 'users', force: :cascade do |t|
+    t.string   'username'
+    t.string   'password_digest'
+    t.datetime 'created_at',      null: false
+    t.datetime 'updated_at',      null: false
+    t.string   'email'
+    t.string   'phone'
   end
 
-  add_foreign_key "plans", "users"
-  add_foreign_key "repos", "plans"
-  add_foreign_key "servings", "plans"
-  add_foreign_key "servings", "repos"
+  add_foreign_key 'plans', 'users'
+  add_foreign_key 'repos', 'plans'
+  add_foreign_key 'servings', 'plans'
+  add_foreign_key 'servings', 'repos'
 end

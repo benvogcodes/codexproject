@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to plans_path
     else
-      flash[:error] = ["Username or password is invalid."]
+      flash[:error] = ['Username or password is invalid.']
       render 'sessions/new'
     end
   end

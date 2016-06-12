@@ -9,15 +9,15 @@ class PlansController < ApplicationController
 
   def create
     if params['plan']['language'] == '' && params['plan']['topic'] == ''
-      flash[:error] = "Please fill out one of the fields"
+      flash[:error] = 'Please fill out one of the fields'
       render 'new'
     else
       @user = current_user
       topic = normalize_topic(params)
       new_plan = @user.plans.create(
-          topic: topic,
-          name: generate_name(params),
-          language: params['plan']['language']
+        topic: topic,
+        name: generate_name(params),
+        language: params['plan']['language']
       )
       # Fire off call to Github API, returns repo @data for create_plan.
       create_query(topic)
@@ -26,7 +26,7 @@ class PlansController < ApplicationController
       # Send notifications based on option flags.
       send_twilio_notification(params['plan'][:phone], new_plan) if params['plan']['twilio'] == 't'
       send_email(@user, new_plan) if params['plan']['sendgrid'] == 't'
-      redirect_to action: "show", id: new_plan.id
+      redirect_to action: 'show', id: new_plan.id
     end
   end
 
@@ -61,6 +61,6 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:name,:frequency,:twilio,:sendgrid, :topic)
+    params.require(:plan).permit(:name, :frequency, :twilio, :sendgrid, :topic)
   end
 end

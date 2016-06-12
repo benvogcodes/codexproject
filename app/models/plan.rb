@@ -5,21 +5,21 @@ class Plan < ActiveRecord::Base
   validates :user_id, presence: true
   validates :frequency, presence: true
 
-  def create_plan(data, user)
-    items = self.clean_data(data)
+  def create_plan(data, _user)
+    clean_data(data)
   end
 
-# Parses the important information from the response object from the Github API call.
+  # Parses the important information from the response object from the Github API call.
   def clean_data(data)
     result = []
     items = data || []
-    number_of_cards = self.cards_per_serve
-    number_of_deliveries = self.serves
+    number_of_cards = cards_per_serve
+    number_of_deliveries = serves
     make_cards_and_repos(result, items, number_of_cards, number_of_deliveries)
-    result.sort! { |a,b| a.stars <=> b.stars }
+    result.sort! { |a, b| a.stars <=> b.stars }
   end
 
-# Creates a new repo object tied to a particular plan.
+  # Creates a new repo object tied to a particular plan.
   def build_card(item, plan)
     card = plan.repos.new(
       served: false,
@@ -40,19 +40,18 @@ class Plan < ActiveRecord::Base
     card
   end
 
-
   def current_cards
     cards = []
-    self.servings.each do |serving|
-      cards << Repo.find(serving.repo_id) if serving.delivery == self.served
+    servings.each do |serving|
+      cards << Repo.find(serving.repo_id) if serving.delivery == served
     end
     cards
   end
 
   def prev_cards
     cards = []
-    self.servings.each do |serving|
-      cards << Repo.find(serving.repo_id) if serving.delivery < self.served
+    servings.each do |serving|
+      cards << Repo.find(serving.repo_id) if serving.delivery < served
     end
     cards
   end
@@ -75,8 +74,8 @@ class Plan < ActiveRecord::Base
   def make_cards_and_repos(result, items, number_of_cards, number_of_deliveries)
     number_of_deliveries.times do |j|
       result = []
-      number_of_cards.times do |i|
-        if items.length > 0
+      number_of_cards.times do |_i|
+        unless items.empty?
           item = items.slice!(rand(0..(items.length - 1)))
           new_card = parse_item_details(item)
           # Create a new repo object tied to this plan based on the input hash created above.
@@ -90,7 +89,7 @@ class Plan < ActiveRecord::Base
   end
 
   def parse_item_details(item)
-    {'id' => item.id,
+    { 'id' => item.id,
       'name' => item.name,
       'full_name' => item.full_name,
       'url' => item.url,
@@ -104,8 +103,7 @@ class Plan < ActiveRecord::Base
       'watchers' => item.watchers_count,
       'forks' => item.forks_count,
       'score' => item.score,
-      'user' => item.owner.login
-    }
+      'user' => item.owner.login }
   end
 
   # Truncate repo description if longer than 255 chars.
@@ -113,5 +111,4 @@ class Plan < ActiveRecord::Base
     description = description.slice(0, 255) + '...' unless description.length <= 255
     description
   end
-
 end
