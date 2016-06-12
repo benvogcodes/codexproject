@@ -7,7 +7,6 @@ class Plan < ActiveRecord::Base
 
   def create_plan(data, user)
     items = self.clean_data(data)
-    # result = self.build_cards(items, self) #Is this redundant given line 53?
   end
 
 # Parses the important information from the response object from the Github API call.
