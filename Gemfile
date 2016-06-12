@@ -39,7 +39,7 @@ gem 'dotenv-rails'
 # Use Twilio-Ruby for sms messages
 gem 'twilio-ruby', '~> 4.3.0'
 
-gem "octokit", "~> 4.0"
+gem 'octokit', '~> 4.0'
 
 gem 'sendgrid-ruby'
 
@@ -57,5 +57,5 @@ group :development do
 end
 
 group :production do
-  gem "rails_12factor"
+  gem 'rails_12factor'
 end

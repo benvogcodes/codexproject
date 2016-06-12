@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def get_current_user
-    User.find(session[:user_id])
-  end
-
   def logged_in?
     !current_user.nil?
   end
@@ -30,18 +26,16 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_github
-    client = Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
+    Octokit::Client.new(login: ENV['GITHUB_LOGIN'], password: ENV['GITHUB_PASSWORD'])
   end
 
   def send_twilio_notification(recipient, plan_name)
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
     message_body = "Greetings from Team Codex, #{@user.username}! Your new plan #{plan_name} has been created. Login to check it out!"
     recipient = recipient.gsub!(/[- ()]/, '')
-    @client.account.messages.create({
-      :to => recipient,
-      :from => "+12027190379",
-      :body => message_body
-    })
+    @client.account.messages.create(to: recipient,
+                                    from: '+12027190379',
+                                    body: message_body)
   end
 
   def send_email(user, plan)
@@ -49,7 +43,7 @@ class ApplicationController < ActionController::Base
     mail = SendGrid::Mail.new do |m|
       m.to = params['plan'][:email]
       m.from = 'teamcodex11@gmail.com'
-      m.subject = "Your New Plan is Ready"
+      m.subject = 'Your New Plan is Ready'
       m.text = "Greetings from Team Codex, #{user.username}! Your new plan #{plan.name} has been created. Login to check it out!"
     end
     client.send(mail)
@@ -59,7 +53,7 @@ class ApplicationController < ActionController::Base
     q = "#{topic}language:#{params['plan']['language']} stars:>100 pushed:>#{DateTime.now - 18.months}"
     authenticate_github
     Octokit.auto_paginate = false
-    @data = Octokit.search_repos(q, {sort: 'stars', order: 'desc', per_page: 100, page: 1})
+    @data = Octokit.search_repos(q, sort: 'stars', order: 'desc', per_page: 100, page: 1)
   end
 
   def generate_name(params)
@@ -68,9 +62,9 @@ class ApplicationController < ActionController::Base
 
   def normalize_topic(params)
     if params['plan']['topic'].length > 1
-      topic = params['plan']['topic'] + '+'
+      params['plan']['topic'] + '+'
     else
-      topic = ''
+      ''
     end
   end
 end

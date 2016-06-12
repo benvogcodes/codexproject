@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get  'logout'            => 'sessions#destroy'
   post 'plans/email'       => 'plans#email'
 
-  post 'plans/demo'             => 'plans#demo_advance'
+  post 'plans/demo' => 'plans#demo_advance'
 
   resources :users
   resource  :session
@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   resources :plans do
     resources :repos
   end
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
